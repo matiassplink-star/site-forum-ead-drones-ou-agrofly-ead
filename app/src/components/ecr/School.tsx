@@ -20,6 +20,10 @@ export default function School() {
         <span className="text-brand-green font-heading font-black text-xs uppercase tracking-[0.2em] block mb-3">
           // CAPACITAÇÃO E TECNOLOGIA RURAL
         </span>
+        <div className="inline-flex items-center gap-2 bg-brand-amber/15 border border-brand-amber/30 rounded-full px-4 py-1.5 mb-4">
+          <span className="w-2 h-2 rounded-full bg-brand-amber animate-pulse" />
+          <span className="text-brand-amber font-mono font-black text-[10px] uppercase tracking-widest">TURMAS ABERTAS 2026</span>
+        </div>
         <h2 className="font-heading text-3xl md:text-5xl font-black mt-2 mb-6 text-white uppercase">
           A Escola de Capacitação Rural
         </h2>
@@ -126,9 +130,15 @@ export default function School() {
 
       {/* ── SEÇÃO DE PLANOS ACADÊMICOS REIMAGINADOS ── */}
       <div id="planos" className="max-w-6xl mx-auto pt-4">
-        <h3 className="font-heading text-2xl md:text-3xl font-black text-center mb-14 text-white uppercase tracking-wide">
-          Planos de Acesso Acadêmicos
-        </h3>
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-ping" />
+            <span className="text-brand-green font-mono text-[10px] uppercase tracking-widest font-bold">Vagas limitadas — Inscreva-se já</span>
+          </div>
+          <h3 className="font-heading text-2xl md:text-3xl font-black text-white uppercase tracking-wide">
+            Planos de Acesso Acadêmicos
+          </h3>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {ACADEMIC_PLANS.map((plan, idx) => (

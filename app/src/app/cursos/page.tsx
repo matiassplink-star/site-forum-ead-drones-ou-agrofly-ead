@@ -129,7 +129,7 @@ export default function CursosPage() {
       <header className="relative z-10 border-b border-zinc-200 bg-white/95 backdrop-blur-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="p-2 rounded bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-500 hover:text-zinc-900 transition-all cursor-pointer">
+            <Link href="/dashboard" className="p-2 rounded bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-650 hover:text-zinc-900 transition-all cursor-pointer">
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div className="h-6 w-px bg-zinc-200" />
@@ -154,13 +154,13 @@ export default function CursosPage() {
               <p className="text-xs font-mono text-zinc-600 uppercase font-semibold">ROLE: {session.role}</p>
             </div>
             {session.role === 'free' && (
-              <span className="px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 text-xs font-mono text-zinc-600 uppercase font-semibold">FREE USER</span>
+              <span className="px-2.5 py-1 rounded bg-zinc-100 border border-zinc-200 text-xs font-mono text-zinc-650 uppercase font-semibold">FREE USER</span>
             )}
             {session.role === 'premium' && (
-              <span className="px-2 py-0.5 rounded bg-amber-50 border border-brand-amber/30 text-xs font-mono text-brand-amber uppercase font-bold">👑 PREMIUM</span>
+              <span className="px-2.5 py-1 rounded bg-amber-50 border border-brand-amber/30 text-xs font-mono text-brand-amber uppercase font-bold">👑 PREMIUM</span>
             )}
             {session.role === 'admin' && (
-              <span className="px-2 py-0.5 rounded bg-blue-50 border border-brand-blue-sky/30 text-xs font-mono text-brand-blue-sky uppercase font-bold">⚙️ ADMIN</span>
+              <span className="px-2.5 py-1 rounded bg-blue-50 border border-brand-blue-sky/30 text-xs font-mono text-brand-blue-sky uppercase font-bold">⚙️ ADMIN</span>
             )}
           </div>
         </div>
@@ -171,14 +171,14 @@ export default function CursosPage() {
         
         {/* CABEÇALHO DA PÁGINA */}
         <div className="space-y-2">
-          <span className="text-[10px] font-mono text-brand-green tracking-widest uppercase flex items-center gap-1.5 font-bold">
-            <Compass className="w-3.5 h-3.5 text-brand-green animate-spin-slow" />
+          <span className="text-xs font-mono text-brand-green tracking-wider uppercase flex items-center gap-1.5 font-bold">
+            <Compass className="w-4 h-4 text-brand-green animate-spin-slow" />
             TRILHAS ACADÊMICAS DE OPERADORES
           </span>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 font-heading">
             Trilhas de <span className="text-brand-green">Capacitação</span>
           </h1>
-          <p className="text-xs text-zinc-500 max-w-2xl leading-relaxed">
+          <p className="text-sm text-zinc-600 max-w-2xl leading-relaxed">
             Selecione a trilha operacional recomendada para o seu nível de capacitação rural. Os cursos avançados cobrem as técnicas completas exigidas pelas portarias regulatórias do MAPA e da ANAC.
           </p>
         </div>
@@ -212,11 +212,11 @@ export default function CursosPage() {
                       
                       {/* Badge */}
                       {isLocked ? (
-                        <span className="px-2 py-0.5 rounded bg-amber-50 border border-brand-amber/20 text-[8px] font-mono text-brand-amber uppercase tracking-wider flex items-center gap-1 font-bold">
-                          <Lock className="w-2.5 h-2.5" /> EXCLUSIVO PREMIUM
+                        <span className="px-2.5 py-1 rounded bg-amber-50 border border-brand-amber/20 text-xs font-mono text-brand-amber uppercase tracking-wider flex items-center gap-1 font-bold">
+                          <Lock className="w-3 h-3" /> EXCLUSIVO PREMIUM
                         </span>
                       ) : (
-                        <span className={`px-2 py-0.5 rounded text-[8px] font-mono uppercase tracking-wider font-bold ${
+                        <span className={`px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider font-bold ${
                           course.isPremium 
                             ? 'bg-emerald-50 border border-brand-green/20 text-brand-green' 
                             : 'bg-zinc-150 border border-zinc-200 text-zinc-500'
@@ -226,16 +226,16 @@ export default function CursosPage() {
                       )}
                     </div>
 
-                    <p className="text-xs text-zinc-550 leading-relaxed max-w-2xl">
+                    <p className="text-sm text-zinc-600 leading-relaxed max-w-2xl">
                       {course.desc}
                     </p>
 
-                    <div className="flex gap-4 text-[10px] font-mono text-zinc-400">
+                    <div className="flex gap-4 text-xs font-mono text-zinc-500">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" /> {course.duration} de carga
+                        <Clock className="w-4 h-4 text-zinc-400" /> {course.duration} de carga
                       </span>
                       <span className="flex items-center gap-1">
-                        <BookOpen className="w-3.5 h-3.5" /> {course.lessonsCount} Módulos
+                        <BookOpen className="w-4 h-4 text-zinc-400" /> {course.lessonsCount} Módulos
                       </span>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ export default function CursosPage() {
 
             <button
               onClick={() => !successUpgrade && setShowCheckoutModal(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-250 border border-zinc-200 text-zinc-500 hover:text-zinc-900 transition-colors"
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-500 hover:text-zinc-900 transition-colors"
               disabled={successUpgrade}
             >
               <X className="w-4 h-4" />
@@ -293,10 +293,10 @@ export default function CursosPage() {
                   <CheckCircle className="w-10 h-10" />
                 </div>
                 <h3 className="text-xl font-bold font-heading">Upgrade Concluído!</h3>
-                <p className="text-xs text-zinc-550 font-mono">
+                <p className="text-sm text-zinc-600 font-mono">
                   Sessão atualizada para <span className="text-brand-green font-bold">PREMIUM ELITE</span>.
                 </p>
-                <p className="text-[10px] text-zinc-400 tracking-widest font-mono uppercase animate-pulse">LIBERANDO TRILHA...</p>
+                <p className="text-xs text-zinc-400 tracking-widest font-mono uppercase animate-pulse">LIBERANDO TRILHA...</p>
               </div>
             ) : (
               <>
@@ -305,14 +305,14 @@ export default function CursosPage() {
                     <Award className="w-6 h-6 animate-bounce" />
                   </div>
                   <h3 className="text-xl font-bold font-heading">Desbloquear Área de Elite</h3>
-                  <p className="text-xs text-zinc-550 leading-relaxed">
+                  <p className="text-sm text-zinc-600 leading-relaxed">
                     O curso <span className="text-brand-amber font-semibold">"{selectedCourseTitle}"</span> exige uma conta Premium.
                   </p>
                 </div>
 
                 <div className="space-y-3 bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
-                  <span className="text-[9px] font-mono text-brand-amber tracking-widest uppercase font-bold block mb-1">VANTAGENS PREMIUM INCLUSAS:</span>
-                  <ul className="space-y-2 text-xs text-zinc-650">
+                  <span className="text-xs font-mono text-brand-amber tracking-wider uppercase font-bold block mb-1">VANTAGENS PREMIUM INCLUSAS:</span>
+                  <ul className="space-y-2 text-sm text-zinc-650">
                     <li className="flex items-start gap-2">
                       <span className="text-brand-green text-sm flex-shrink-0">✔</span>
                       Acesso completo às trilhas de Mapeamento NDVI & Pulverização Avançada.
@@ -330,11 +330,11 @@ export default function CursosPage() {
 
                 <div className="flex items-baseline justify-between border-t border-zinc-150 pt-4">
                   <div>
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase block">VALOR INVESTIMENTO</span>
+                    <span className="text-xs font-mono text-zinc-500 uppercase block">VALOR INVESTIMENTO</span>
                     <span className="text-xl font-bold text-zinc-900">R$ 1.497,00</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[9px] bg-brand-green/10 text-brand-green px-2 py-0.5 rounded font-mono uppercase font-bold block text-center">GRÁTIS NO MVP</span>
+                    <span className="text-xs bg-brand-green/10 text-brand-green px-2.5 py-1 rounded font-mono uppercase font-bold block text-center">GRÁTIS NO MVP</span>
                   </div>
                 </div>
 
@@ -360,9 +360,9 @@ export default function CursosPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
           <div className="flex items-center gap-3 justify-center">
             <ECRDronesLogo version={5} size={25} />
-            <span className="text-[10px] font-mono text-zinc-400">ECR DRONES • PORTAL DO ALUNO</span>
+            <span className="text-xs font-mono text-zinc-500 font-bold uppercase">ECR DRONES • PORTAL DO ALUNO</span>
           </div>
-          <p className="text-[10px] font-mono text-zinc-500">
+          <p className="text-xs font-mono text-zinc-550">
             Aplicações dinâmicas simuladas com local storage.
           </p>
         </div>

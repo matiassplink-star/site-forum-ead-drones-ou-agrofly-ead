@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ECRDronesLogo from '@/components/ECRDronesLogo';
-import { setUserSession, clearUserSession } from '@/lib/mockAuth';
+import { setUserSession, getUserSession } from '@/lib/mockAuth';
 import { Shield, Sparkles, User, Award, Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
@@ -14,10 +14,13 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Limpa sessões antigas ao entrar na tela de login
+  // Verifica se já tem sessão ativa — redireciona para o dashboard
   useEffect(() => {
-    clearUserSession();
-  }, []);
+    const existingSession = getUserSession();
+    if (existingSession) {
+      router.replace('/dashboard');
+    }
+  }, [router]);
 
   const handleSimulatedLogin = (role: 'free' | 'premium' | 'admin') => {
     setLoading(true);
