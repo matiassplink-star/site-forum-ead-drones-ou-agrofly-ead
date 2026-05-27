@@ -1,8 +1,8 @@
-# AgroFly Academy — Cursos e Comunidade de Drones Agrícolas
+# ECR Drones — Cursos e Comunidade de Drones Agrícolas
 
 ## What This Is
 
-Plataforma completa de educação online e comunidade de membros dedicada ao mercado de **Drones na Área Agrícola (AgroFly Academy)**. Contém página de vendas integrada, área de cursos com vídeos de treinamento (YouTube embed), fórum de discussão comunitário de alta performance e biblioteca de materiais para download (PDFs e planilhas de plano de voo). A plataforma é construída com Next.js 14, Supabase (banco de dados, autenticação e arquivos) e Mercado Pago, com planos de acesso Free e Premium (mensal e vitalício).
+Plataforma completa de educação online e comunidade de membros dedicada ao mercado de **Drones na Área Agrícola (ECR Drones)**. Contém página de vendas integrada, área de cursos com vídeos de treinamento (YouTube embed), fórum de discussão comunitário de alta performance e biblioteca de materiais para download (PDFs e planilhas de plano de voo). A plataforma é construída com Next.js 14, Supabase (banco de dados, autenticação e arquivos) e Mercado Pago, com planos de acesso Free e Premium (mensal e vitalício).
 
 ## Core Value
 
@@ -109,4 +109,4 @@ Este documento evolui a cada transição de fase e milestone.
 3. Auditar Out of Scope — os motivos ainda são válidos?
 
 ---
-*Last updated: 2026-05-27 after AgroFly Academy rebranding*
+*Last updated: 2026-05-27 after ECR Drones rebranding*

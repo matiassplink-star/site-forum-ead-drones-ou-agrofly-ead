@@ -1,4 +1,4 @@
-# Planejamento de Identidade Visual: AgroFly Academy
+# Planejamento de Identidade Visual: ECR Drones
 
 Este documento detalha o planejamento completo da identidade visual e a direção criativa para a plataforma de membros e cursos focada em **Drones na Área Agrícola**.
 
@@ -6,7 +6,7 @@ Este documento detalha o planejamento completo da identidade visual e a direçã
 
 ## 1. Conceito Central & Naming
 
-### Naming Recomendado: **AgroFly Academy**
+### Naming Recomendado: **ECR Drones**
 *Slogan Sugerido:* "Tecnologia aeroespacial de precisão ao alcance do produtor."
 
 **Conceito:** A marca une a **precisão tecnológica do voo (Drones)** com a **solidez e produtividade do campo (Agricultura)**. Não se trata apenas de pilotar drones, mas de gerar dados acionáveis que aumentam a produtividade da safra, reduzem custos de pulverização e trazem modernidade para a gestão rural.

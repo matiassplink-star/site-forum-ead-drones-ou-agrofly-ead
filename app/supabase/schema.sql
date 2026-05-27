@@ -1,5 +1,5 @@
 -- ============================================================
---  AgroFly Academy — Schema Principal do Banco de Dados
+--  ECR Drones — Schema Principal do Banco de Dados
 --  Supabase PostgreSQL
 --  Execute este script no SQL Editor do Supabase
 -- ============================================================

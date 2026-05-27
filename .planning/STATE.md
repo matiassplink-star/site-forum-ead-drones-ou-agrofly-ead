@@ -1,4 +1,4 @@
-# STATE.md — AgroFly Academy
+# STATE.md — ECR Drones
 
 ## Project Reference
 
@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-05-27)
 ## Current State
 
 - Project initialized: 2026-05-27
-- Rebranding to AgroFly Academy completed: yes
+- Rebranding to ECR Drones completed: yes
 - Visual Identity designed and added: yes (`.planning/research/brand_identity.md`)
 - Integrated open-source stacks (discussbase, NextBase RBAC, Aceternity/Magic UI): yes
 - Git initialized: yes
@@ -20,7 +20,7 @@ See: .planning/PROJECT.md (updated 2026-05-27)
 
 ## Last Action
 
-Rebranding completo concluído. Planejamento estratégico atualizado incorporando a identidade visual AgroFly Academy e integrações essenciais do GitHub.
+Rebranding completo concluído. Planejamento estratégico atualizado incorporando a identidade visual ECR Drones e integrações essenciais do GitHub.
 
 ## Next Step
 

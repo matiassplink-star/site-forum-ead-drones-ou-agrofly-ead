@@ -1,8 +1,8 @@
-# ROADMAP.md — AgroFly Academy
+# ROADMAP.md — ECR Drones
 
 ## Milestone 1: MVP — Plataforma Funcional Completa
 
-**Objetivo:** Ter a plataforma AgroFly Academy completamente funcional, com design ultra-premium ("Eco-Tech"), página de vendas interativa, área de membros protegida com cursos do YouTube, fórum rápido, downloads de materiais e checkout do Mercado Pago ativo.
+**Objetivo:** Ter a plataforma ECR Drones completamente funcional, com design ultra-premium ("Eco-Tech"), página de vendas interativa, área de membros protegida com cursos do YouTube, fórum rápido, downloads de materiais e checkout do Mercado Pago ativo.
 
 **Estado:** 🟡 Em andamento
 
@@ -35,7 +35,7 @@
 **Deliverables:**
 - Criar conta e configurar domínio no Resend.com (gratuito até 3.000 emails/mês)
 - Integrar o SDK do Resend no projeto Next.js
-- Template HTML com identidade visual do AgroFly Academy (logo, cores, tipografia) para:
+- Template HTML com identidade visual do ECR Drones (logo, cores, tipografia) para:
   - Email de boas-vindas ao novo membro
   - Confirmação de email de cadastro
   - Recibo de pagamento aprovado
@@ -55,7 +55,7 @@
 **Deliverables:**
 - Instalação e setup de pacotes: Tailwind CSS, Framer Motion, Radix UI e Shadcn/UI
 - Configuração dos arquivos de componentes e estilos para **Aceternity UI** e **Magic UI**
-- Desenvolvimento da Landing Page do **AgroFly Academy** com seções interativas:
+- Desenvolvimento da Landing Page do **ECR Drones** com seções interativas:
   - Seção Hero de alto impacto (efeito de grade ou partículas tecnológicas)
   - O que são drones agrícolas (fotos/vídeos e depoimentos premium)
   - Trilhas de Aprendizagem (Pulverização avançada, Mapeamento NDVI, Legislação)
@@ -191,7 +191,7 @@
 - **Sentry (Monitoramento de Erros — Plano Grátis):** alertas em tempo real para qualquer erro encontrado por usuários reais em produção, com rastreamento completo da causa
 - **Vercel Speed Insights:** monitoramento automático da velocidade de carregamento do site para usuários brasileiros
 - **UptimeRobot (Monitoramento de Disponibilidade — Gratuito):** alerta por email e WhatsApp se o site ficar fora do ar
-- **Imagens OG Dinâmicas:** prévia visual bonita gerada automaticamente quando qualquer link do AgroFly Academy for compartilhado no WhatsApp ou redes sociais
+- **Imagens OG Dinâmicas:** prévia visual bonita gerada automaticamente quando qualquer link do ECR Drones for compartilhado no WhatsApp ou redes sociais
 - **UTM Tracking:** rastreamento de origem de novos cadastros (Instagram, YouTube, WhatsApp, etc.)
 
 **Status:** ⬜ Não iniciado
