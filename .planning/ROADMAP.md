@@ -1,45 +1,48 @@
-# ROADMAP.md — EduMembros
+# ROADMAP.md — AgroFly Academy
 
 ## Milestone 1: MVP — Plataforma Funcional Completa
 
-**Objetivo:** Ter uma plataforma completamente funcional com página de vendas, autenticação, área de cursos, fórum, lives, materiais e pagamentos integrados. Pronta para receber os primeiros membros pagantes.
+**Objetivo:** Ter a plataforma AgroFly Academy completamente funcional, com design ultra-premium ("Eco-Tech"), página de vendas interativa, área de membros protegida com cursos do YouTube, fórum rápido, downloads de materiais e checkout do Mercado Pago ativo.
 
 **Estado:** 🟡 Em andamento
 
 ---
 
-### Phase 1 — Fundação do Projeto (Next.js + Supabase Setup)
+### Phase 1 — Fundação do Projeto e Banco de Dados (Next.js + Supabase Setup)
 
-**Goal:** Inicializar o projeto Next.js com estrutura de pastas, configurar Supabase (Auth, DB, Storage), definir schema do banco de dados e configurar variáveis de ambiente.
+**Goal:** Inicializar o projeto Next.js com TypeScript, configurar a estrutura de pastas e implementar a arquitetura de banco de dados robusta e segura estilo **NextBase** (RLS) e **discussbase** (Fórum).
 
 **Deliverables:**
 - Projeto Next.js 14+ criado com App Router e TypeScript
 - Supabase conectado (Auth + PostgreSQL + Storage)
-- Schema do banco: `users`, `plans`, `subscriptions`, `courses`, `lessons`, `forum_categories`, `forum_topics`, `forum_replies`, `materials`, `live_events`
-- Middleware de proteção de rotas (free vs. premium)
-- `.env.local` com todas as variáveis
-- Estrutura de pastas organizada
+- Modelagem de Tabelas e Relações no Supabase:
+  - `profiles` (estilo NextBase para gerenciar roles `free`, `premium`, `admin`)
+  - `courses` & `lessons` (trilhas de cursos de drones e vídeos do YouTube)
+  - `lessons_progress` (salvamento de progresso de aulas assistidas)
+  - `forum_categories`, `forum_topics`, `forum_replies` (schema otimizado estilo **discussbase**)
+  - `materials` (manuais PDF e tabelas de calibração)
+- Configuração de políticas de segurança Row Level Security (RLS) para proteger conteúdo pago
+- Middleware do Next.js configurado para proteção de rotas
 
 **Status:** ⬜ Not started
 
 ---
 
-### Phase 2 — Design System e Landing Page
+### Phase 2 — Design System Premium e Landing Page (Eco-Tech)
 
-**Goal:** Criar o design system da plataforma (cores, tipografia, componentes) e a landing page de vendas completa com todas as seções.
+**Goal:** Instalar e configurar as bibliotecas visuais premium (**Aceternity UI**, **Magic UI** e **Shadcn/UI**) e criar a landing page de vendas moderna e animada para o mercado do agronegócio.
 
 **Deliverables:**
-- Design system: tokens de cor (azul/cinza corporativo), tipografia, botões, cards, badges
-- Landing page com seções:
-  - Hero com CTA forte
-  - O que você vai aprender
-  - Benefícios (free vs. premium)
-  - Depoimentos de alunos
-  - Comparativo de planos (tabela free vs. pago)
-  - FAQ
-  - Rodapé com links e política
-- Totalmente responsiva (mobile-first)
-- SEO: meta tags, OG tags, título e descrição
+- Instalação e setup de pacotes: Tailwind CSS, Framer Motion, Radix UI e Shadcn/UI
+- Configuração dos arquivos de componentes e estilos para **Aceternity UI** e **Magic UI**
+- Desenvolvimento da Landing Page do **AgroFly Academy** com seções interativas:
+  - Seção Hero de alto impacto (efeito de grade ou partículas tecnológicas)
+  - O que são drones agrícolas (fotos/vídeos e depoimentos premium)
+  - Trilhas de Aprendizagem (Pulverização avançada, Mapeamento NDVI, Legislação)
+  - Comparativo de planos (tabela Free vs. Premium de alto contraste)
+  - FAQ interativo (acordeão estilizado da Shadcn/UI)
+  - Botão de inscrição com micro-animação (efeito shiny/brilhante)
+- SEO totalmente otimizado para o nicho de agronegócio nacional
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 1
@@ -48,68 +51,62 @@
 
 ### Phase 3 — Autenticação e Área do Membro
 
-**Goal:** Implementar fluxo completo de autenticação com Supabase Auth e criar o dashboard do membro.
+**Goal:** Implementar fluxo completo de autenticação seguro com Supabase Auth e dashboard do aluno estruturado.
 
 **Deliverables:**
-- Páginas: Login, Cadastro, Recuperar senha, Confirmar email
-- Dashboard do membro (após login)
-- Perfil editável (nome, foto, bio)
-- Lógica de role: `free` vs. `premium`
-- Redirecionamento pós-login para dashboard
-- Proteção de rotas premium com middleware
+- Páginas de Auth (Login, Cadastro, Recuperar senha) com design consistente de vidro (Glassmorphism)
+- Redirecionamento baseado na role do usuário (`free`, `premium` ou `admin`)
+- Página de Dashboard do Membro (área logada inicial) com boas-vindas, trilhas sugeridas e atalhos rápidos
+- Tela de Perfil do usuário para edição de foto, nome e alteração de senha
+- Middleware ativo validando sessões e bloqueando invasões em rotas premium
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 1, Phase 2
 
 ---
 
-### Phase 4 — Área de Cursos e Vídeos (YouTube)
+### Phase 4 — Área de Cursos de Drone (YouTube Embed)
 
-**Goal:** Criar a área de cursos completa com player do YouTube integrado, progresso de aulas e controle de acesso (free vs. premium).
+**Goal:** Criar a área de cursos completa com player de vídeo do YouTube responsivo, progresso de aulas e controle de liberação de conteúdo.
 
 **Deliverables:**
-- Listagem de cursos com thumbnail e badges (free/premium)
-- Página de curso: descrição, módulos, aulas
-- Player YouTube embed responsivo
-- Controle de acesso: aulas free liberadas para todos, aulas premium bloqueadas com CTA de upgrade
-- Marcar aulas como assistidas (progresso salvo no Supabase)
-- Geração de certificado de conclusão (PDF simples)
-- Admin: criar/editar cursos e aulas pelo painel
+- Grade de cursos mostrando badges de "Gratuito" ou "Exclusivo Premium"
+- Página de curso: descrição detalhada, cronograma de módulos e lista de aulas
+- Player YouTube Embed otimizado, sem botões de distração
+- Salvamento automático de progresso (botão "Concluir Aula" atualizando Supabase PostgreSQL)
+- Controle de acesso rígido por RLS: se o usuário `free` tentar acessar aula `premium`, exibir tela de bloqueio convidativa para assinatura
+- Gerador automático de certificado de conclusão simples (PDF client-side)
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 3
 
 ---
 
-### Phase 5 — Fórum da Comunidade
+### Phase 5 — Fórum da Comunidade (Discussbase Performance)
 
-**Goal:** Implementar o fórum de discussão entre membros com categorias, tópicos e respostas.
+**Goal:** Criar o fórum de discussões entre membros para dúvidas de campo, calibrações de drone e negócios, usando o schema otimizado do **discussbase**.
 
 **Deliverables:**
-- Listagem de categorias do fórum
-- Listagem e criação de tópicos
-- Replies com suporte a formatação básica (Markdown)
-- Notificações por email de respostas (via Supabase Edge Functions ou Resend)
-- Moderação: deletar tópico/reply (admin)
-- Paginação de tópicos e replies
+- Visualização de categorias do fórum com contagem de tópicos e postagens recentes
+- Tela de criação de tópicos com suporte a formatação de texto simples
+- Sistema de respostas (threads) rápido e paginado
+- Moderação nativa: botão para excluir mensagens (restrito a usuários `admin`)
+- Relação segura de posts: apenas o autor original pode editar seu próprio tópico/resposta (políticas de RLS validadas no Supabase)
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 3
 
 ---
 
-### Phase 6 — Lives ao Vivo e Materiais para Download
+### Phase 6 — Lives ao Vivo e Biblioteca de Arquivos
 
-**Goal:** Criar a área de transmissões ao vivo (YouTube Live embed) e biblioteca de materiais para download (PDFs, planilhas).
+**Goal:** Área de aulas ao vivo integrando YouTube Live e downloads de arquivos essenciais (planilhas de vazão de bico, manuais de drones DJI/XAG).
 
 **Deliverables:**
-- Página de lives: live atual + agenda de próximas lives
-- Embed YouTube Live com chat (se disponível)
-- Badge "AO VIVO" quando em transmissão
-- Lives premium marcadas com controle de acesso
-- Biblioteca de materiais: listagem com thumbnail e descrição
-- Download direto (Supabase Storage para arquivos protegidos)
-- Materiais free vs. premium com bloqueio e CTA
+- Seção de Lives: embed de transmissão ao vivo do YouTube com cronômetro para o próximo evento agrícola
+- Chat da live integrado
+- Central de Downloads: grade de arquivos para download (PDFs e planilhas)
+- Downloads controlados: materiais avançados de pulverização restritos a membros premium no Supabase Storage
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 3
@@ -118,51 +115,46 @@
 
 ### Phase 7 — Gateway de Pagamento (Mercado Pago)
 
-**Goal:** Integrar o Mercado Pago com suporte a assinatura mensal recorrente e pagamento único vitalício, com webhook para ativação automática de acesso premium.
+**Goal:** Integração completa do Mercado Pago para vendas de planos de forma 100% automatizada e webhook seguro de ativação.
 
 **Deliverables:**
-- Integração Mercado Pago SDK/API
-- Plano mensal: checkout de assinatura recorrente
-- Plano vitalício: pagamento único
-- Webhook handler: ativar/desativar `premium` no Supabase automaticamente
-- Página de sucesso e falha de pagamento
-- Histórico de pagamentos no perfil do membro
-- Cancelamento de assinatura pelo membro
+- Integração com a API/SDK do Mercado Pago
+- Checkout Pro ou checkout transparente para Plano Mensal (recorrente) e Plano Vitalício (pagamento único)
+- Criação do Webhook Route em Next.js para escutar eventos de pagamento aprovado, pendente ou cancelado
+- Lógica de sincronização: ao confirmar o pagamento, mudar a role do usuário no Supabase de `free` para `premium` imediatamente
+- Tela amigável de Sucesso e Falha de pagamento
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 3
 
 ---
 
-### Phase 8 — Painel Admin
+### Phase 8 — Painel Admin Completo
 
-**Goal:** Criar painel administrativo para gerenciar toda a plataforma: usuários, cursos, fórum, lives e materiais.
+**Goal:** Painel administrativo protegido para gestão total da plataforma de drones.
 
 **Deliverables:**
-- Rota `/admin` protegida por role `admin`
-- Dashboard admin: métricas (membros, receita, cursos, tópicos)
-- CRUD de cursos e aulas
-- CRUD de materiais (upload para Supabase Storage)
-- Gerenciamento de usuários (ver plano, forçar upgrade/downgrade)
-- Moderação do fórum (deletar tópicos/replies)
-- Criação e edição de eventos de lives
+- Rota `/admin` protegida rigidamente por middleware (role `admin`)
+- Dashboard executivo: total de assinantes premium, faturamento mensal estimado, tópicos criados no fórum
+- Formulário simples para criação/edição de novos cursos e upload de aulas
+- Painel para upload de novos arquivos PDF e planilhas na central de downloads
+- Área de gerenciamento de membros para habilitar ou remover acessos premium manualmente
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 4, Phase 5, Phase 6, Phase 7
 
 ---
 
-### Phase 9 — Polimento, SEO e Preparação para Deploy
+### Phase 9 — Otimização, SEO Programático e Deploy
 
-**Goal:** Ajustes finais de UX/UI, otimizações de performance, SEO avançado e preparação do ambiente de produção para deploy em VPS ou Vercel.
+**Goal:** Polimento estético, otimização de velocidade de carregamento, SEO agro-segmentado e deploy final na Vercel ou VPS.
 
 **Deliverables:**
-- Otimização de imagens e lazy loading
-- SEO: sitemap.xml, robots.txt, Open Graph, Schema markup
-- Testes end-to-end dos fluxos críticos (cadastro → pagamento → acesso premium)
-- Variáveis de ambiente para produção
-- Documentação de deploy (README)
-- Configuração de domínio e HTTPS
+- Otimização de imagens da landing page (formatos .webp leves)
+- SEO técnico: sitemap.xml, robots.txt, tags Open Graph para WhatsApp e redes sociais
+- Testes robustos de segurança do Supabase Auth e RLS
+- Setup de variáveis de ambiente de produção
+- Deploy final integrado e funcional na Vercel (ou VPS) conectado ao banco Supabase definitivo
 
 **Status:** ⬜ Not started
 **Depends on:** Phase 8
@@ -172,20 +164,14 @@
 ## Backlog (Pós MVP)
 
 ### 999.1 — Sistema de Notificações In-App
-Push notifications dentro da plataforma para novos tópicos, replies e lives.
+Push notifications dentro da plataforma para novos tópicos, replies e lives de drones.
 
-### 999.2 — Sistema de Afiliados
-Programa de afiliados com links rastreáveis e comissões automáticas.
+### 999.2 — Painel de Calculadora de Pulverização
+Calculadora interativa na web para o piloto de drone calcular a vazão ideal baseada no vento e velocidade do drone.
 
-### 999.3 — App Mobile (PWA)
-Transformar a plataforma em PWA para instalação no celular.
-
-### 999.4 — Múltiplos Instrutores
-Suporte para criação de cursos por múltiplos professores com seus próprios painéis.
-
-### 999.5 — Gamificação
-Sistema de pontos, badges e ranking por participação no fórum e conclusão de cursos.
-
+### 999.3 — Programa de Afiliados
+Sistema para alunos premium recomendarem a plataforma e receberem comissão recorrente automaticamente.
 ---
 
-*Last updated: 2026-05-27 after initialization*
+*Last updated: 2026-05-27 after AgroFly Academy rebranding*
+

@@ -1,12 +1,12 @@
-# EduMembros — Plataforma de Cursos e Comunidade
+# AgroFly Academy — Cursos e Comunidade de Drones Agrícolas
 
 ## What This Is
 
-Plataforma completa de educação online e comunidade de membros, com página de vendas integrada, área de cursos com vídeos do YouTube, fórum de discussão entre membros, e dois planos de acesso (free e pago). O site é construído com Next.js, Supabase como backend e Mercado Pago como gateway de pagamento, voltado para um público misto de educação online no Brasil.
+Plataforma completa de educação online e comunidade de membros dedicada ao mercado de **Drones na Área Agrícola (AgroFly Academy)**. Contém página de vendas integrada, área de cursos com vídeos de treinamento (YouTube embed), fórum de discussão comunitário de alta performance e biblioteca de materiais para download (PDFs e planilhas de plano de voo). A plataforma é construída com Next.js 14, Supabase (banco de dados, autenticação e arquivos) e Mercado Pago, com planos de acesso Free e Premium (mensal e vitalício).
 
 ## Core Value
 
-Membros pagantes têm acesso total a cursos, fórum e lives — entregando uma experiência premium de aprendizado em comunidade com o menor atrito possível de cadastro e pagamento.
+Membros do agronegócio têm acesso imediato a treinamentos especializados de voo, pulverização e mapeamento NDVI, integrando aprendizado de elite com uma comunidade ativa no fórum com o menor atrito operacional possível.
 
 ## Requirements
 
@@ -18,86 +18,79 @@ Membros pagantes têm acesso total a cursos, fórum e lives — entregando uma e
 
 ### Active
 
-<!-- Current scope. Building toward these. -->
-
 **Página de Vendas (Landing Page)**
-- [ ] Landing page profissional com seções: hero, benefícios, depoimentos, planos, FAQ e CTA
-- [ ] Apresentação clara dos dois planos (Free e Pago)
-- [ ] Checkout integrado com Mercado Pago (assinatura mensal e pagamento único/vitalício)
-- [ ] SEO otimizado para PT-BR
+- [ ] Landing page com identidade "Eco-Tech" (cinza escuro, verde foliar e ouro safra)
+- [ ] Componentes interativos premium usando **Aceternity UI** (efeitos de luz e grades) e **Magic UI** (textos animados)
+- [ ] Tabela comparativa e clara dos planos (Free vs. Premium)
+- [ ] Checkout integrado ao Mercado Pago para assinatura mensal recorrente e pagamento único (acesso vitalício)
+- [ ] SEO otimizado para o agronegócio brasileiro (PT-BR)
 
-**Autenticação e Membros**
-- [ ] Cadastro e login com Supabase Auth (email/senha e OAuth)
-- [ ] Dois tipos de conta: Free e Premium (assinante pago)
-- [ ] Perfil de membro editável
-- [ ] Dashboard do membro após login
+**Autenticação e Controle de Acesso (RBAC)**
+- [ ] Cadastro e login via Supabase Auth integrado
+- [ ] Arquitetura de segurança no banco de dados estilo **NextBase** (Row Level Security - RLS) protegendo dados e conteúdos
+- [ ] Regras de acesso baseadas em perfil (`free`, `premium`, `admin`)
+- [ ] Painel (Dashboard) interativo para o membro após o login
 
-**Área de Cursos**
-- [ ] Listagem de cursos com thumbnail e descrição
-- [ ] Player de vídeo integrado do YouTube (embed)
-- [ ] Cursos free: aulas liberadas para todos os membros
-- [ ] Cursos pagos: apenas para assinantes Premium
-- [ ] Progresso de aulas (marcar como assistida)
-- [ ] Certificados de conclusão de curso
+**Área de Cursos Agrícolas**
+- [ ] Listagem de cursos organizados em trilhas (Mapeamento NDVI, Pulverização Prática, Legislação)
+- [ ] Player de vídeo integrado responsivo (YouTube Embed)
+- [ ] Controle de acesso: aulas básicas free liberadas, aulas técnicas avançadas restritas para assinantes Premium
+- [ ] Progresso de aulas salvas no Supabase (marcação automática de aula assistida)
+- [ ] Sistema simples de geração de certificados de conclusão em PDF
 
-**Fórum da Comunidade**
-- [ ] Fórum com categorias/tópicos
-- [ ] Criar e responder tópicos (todos os membros)
-- [ ] Moderação básica (admin)
-- [ ] Notificações de resposta
+**Fórum da Comunidade (Discussbase-style)**
+- [ ] Fórum estruturado com categorias (ex: Pulverização, Mapeamento, Dúvidas de Equipamentos)
+- [ ] Criação de tópicos e respostas (Markdown simplificado para membros)
+- [ ] Schema otimizado baseado no projeto open-source **discussbase** (Supabase + Next.js) para máxima performance de queries
+- [ ] Moderação ágil de tópicos e respostas pelo painel administrativo
 
-**Lives / Transmissões ao Vivo**
-- [ ] Página de lives com embed do YouTube Live
-- [ ] Agendamento e aviso de próximas lives
-- [ ] Lives exclusivas para Premium (quando aplicável)
+**Transmissões ao Vivo (Lives)**
+- [ ] Página de lives exclusivas (embed do YouTube Live) com aviso programado de novos eventos
+- [ ] Controle de acesso para lives exclusivas de membros Premium
 
-**Materiais para Download**
-- [ ] Upload e download de PDFs e planilhas
-- [ ] Materiais free vs. exclusivos para Premium
+**Biblioteca de Materiais**
+- [ ] Upload de planilhas de calibração de bicos de drone e manuais PDF (Supabase Storage)
+- [ ] Downloads protegidos via políticas de Storage do Supabase (materiais exclusivos vs. free)
 
 **Gateway de Pagamento (Mercado Pago)**
-- [ ] Assinatura mensal recorrente
-- [ ] Pagamento único (vitalício)
-- [ ] Webhook para ativar/desativar acesso Premium automaticamente
-- [ ] Página de sucesso e falha de pagamento
+- [ ] Integração segura com o SDK/API do Mercado Pago
+- [ ] Webhook resiliente: ativação imediata do plano `premium` no Supabase e reversão automática em caso de cancelamento/inadimplência
+- [ ] Histórico simples de faturamento na conta do usuário
 
-**Admin**
-- [ ] Painel admin para gerenciar usuários, cursos e fórum
-- [ ] Upload de materiais e criação de cursos
+**Painel Admin**
+- [ ] Painel administrativo (`/admin`) restrito a usuários com a role `admin`
+- [ ] Gerenciamento de cursos, upload de materiais e moderação direta de tópicos do fórum
 
 ### Out of Scope
 
-- App mobile nativo — plataforma web responsiva é suficiente para v1
-- Sistema de afiliados — complexidade desnecessária para v1
-- Múltiplos idiomas — 100% PT-BR conforme definido
-- Hospedagem de vídeo própria — YouTube integrado é a escolha (custo e simplicidade)
+- Hosting próprio de arquivos de vídeo — integração direta do YouTube para economizar tokens, custos de infraestrutura e performance
+- Desenvolvimento de app mobile nativo na v1 — layout web 100% responsivo e otimizado para celulares resolve o MVP
+- Gateway de pagamento internacional — foco exclusivo no mercado brasileiro via Mercado Pago
 
 ## Context
 
-- **Stack**: Next.js 14+ (App Router), Supabase (Auth + DB + Storage), Mercado Pago SDK, Tailwind CSS ou Vanilla CSS
-- **Vídeos**: Todos hospedados no YouTube, integrados via embed (evita custo de CDN)
-- **Banco de dados**: Supabase PostgreSQL — usuários, cursos, fórum, planos
-- **Hospedagem**: Desenvolvimento local → VPS ou Vercel (a decidir)
-- **Idioma**: 100% PT-BR
-- **Público**: Misto (iniciantes, profissionais e empreendedores) — educação online
+- **Stack de UI Premium**: Next.js 14+ (App Router), Tailwind CSS, Framer Motion, Aceternity UI, Magic UI, Shadcn/UI
+- **Backend & Banco de dados**: Supabase PostgreSQL + Auth + Storage com políticas rígidas de Row Level Security (RLS) inspiradas no modelo **NextBase**
+- **Arquitetura do Fórum**: Estrutura otimizada baseada no open-source **discussbase** para consultas relacionais rápidas
+- **Vídeos**: YouTube Embed (aulas gravadas e transmissões ao vivo)
+- **Integração de Pagamento**: Mercado Pago com webhooks seguros protegidos por assinatura de payload
 
 ## Constraints
 
-- **Stack**: Next.js + Supabase — definido pelo usuário, sem alteração
-- **Vídeos**: Apenas YouTube embed — sem uploads diretos de vídeo
-- **Pagamentos**: Apenas Mercado Pago — gateway escolhido para o mercado brasileiro
-- **Idioma**: PT-BR exclusivo — sem internacionalização na v1
-- **Acesso**: Controle de acesso baseado em roles Supabase (free vs. premium)
+- **Stack**: Next.js + Supabase + Mercado Pago (imposto pelo escopo do projeto)
+- **Design System**: Uso estrito de componentes de código aberto premium (Aceternity/Magic UI/Shadcn) para reduzir o consumo de tokens na geração de código personalizado
+- **Segurança**: RLS ativado em todas as tabelas sensíveis do banco de dados (não expor dados de assinantes)
+- **Idioma**: Exclusivo em Português do Brasil (PT-BR)
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js (App Router) | SSR nativo + ótimo suporte Vercel + ecosystem maduro | — Pending |
-| Supabase | Backend completo (Auth + DB + Storage) sem servidor próprio | — Pending |
-| Mercado Pago | Melhor suporte para pagamentos recorrentes no Brasil | — Pending |
-| YouTube embed | Custo zero de hosting de vídeo, familiar para os usuários | — Pending |
-| Dois planos (Free + Premium) | Funil de conversão: free atrai, premium monetiza | — Pending |
+| Next.js 14 App Router | Velocidade de carregamento (SSR) e facilidade de deploy na Vercel | — Pending |
+| Supabase + RLS | Banco de dados relacional robusto com autenticação e políticas de segurança nativas | — Pending |
+| Discussbase DB Schema | Estrutura de fórum open-source testada que economiza tempo de desenvolvimento e evita bugs | — Pending |
+| Aceternity & Magic UI | Garante o efeito "WOW" visual com componentes de código aberto prontos, economizando tokens de chat | — Pending |
+| Mercado Pago Webhooks | Automação total de liberação de assinaturas sem intervenção humana | — Pending |
 
 ## Evolution
 
@@ -116,4 +109,4 @@ Este documento evolui a cada transição de fase e milestone.
 3. Auditar Out of Scope — os motivos ainda são válidos?
 
 ---
-*Last updated: 2026-05-27 after initialization*
+*Last updated: 2026-05-27 after AgroFly Academy rebranding*
