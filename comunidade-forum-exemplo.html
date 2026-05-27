@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECR Drones - Fórum Comunidade (Demonstração do MVP)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Exo 2 e Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Exo 2', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              black: '#0A0E12',
+              green: '#2E7D32',
+              'green-dark': '#1B5E20',
+              amber: '#F57F17',
+              'blue-sky': '#1565C0',
+              gray: '#9E9E9E'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050709;
+    }
+    .font-heading {
+      font-family: 'Exo 2', sans-serif;
+    }
+    /* Estilização da barra de rolagem */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0E12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F2937;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2E7D32;
+    }
+  </style>
+</head>
+<body class="text-white overflow-x-hidden selection:bg-brand-green selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- ── GRID DE FUNDO TELEMÉTRICO ── -->
+  <div 
+    class="fixed inset-0 pointer-events-none z-0 opacity-15" 
+    style="
+      background-image: 
+        linear-gradient(rgba(46, 125, 50, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46, 125, 50, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Glow superior -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[radial-gradient(ellipse,rgba(46,125,50,0.06)_0%,transparent_70%)] pointer-events-none z-0" aria-hidden="true"></div>
+
+  <!-- ── NAVBAR SUPERIOR ── -->
+  <header class="relative z-10 border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="javascript:void(0)" class="p-2 rounded bg-zinc-900 border border-zinc-850 text-zinc-400 hover:text-white transition-all" onclick="alert('Esta é uma página estática de demonstração off-line.')">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </a>
+        <div class="h-6 w-px bg-zinc-900"></div>
+        <div class="flex items-center gap-2">
+          <!-- Logo Horizontal Simplificada -->
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded bg-brand-green/20 border border-brand-green/45 flex items-center justify-center font-heading font-black text-brand-green text-sm">ECR</div>
+            <span class="font-heading font-bold text-xs uppercase tracking-wider text-white">Drones</span>
+          </div>
+          <span class="text-[9px] font-mono text-zinc-550 border border-zinc-850 px-2 py-0.5 rounded hidden sm:inline-block">DEMO OPERACIONAL</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+          <p class="text-xs font-bold text-white">Marcos Rezende (Simulado)</p>
+          <p class="text-[9px] font-mono text-brand-amber uppercase tracking-wider">👑 PERFIL PREMIUM ELITE</p>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-brand-amber/15 border border-brand-amber/35 flex items-center justify-center text-xs text-brand-amber font-bold">MR</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── CONTEÚDO PRINCIPAL (FÓRUM) ── -->
+  <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid md:grid-cols-12 gap-8 items-start">
+    
+    <!-- COLUNA ESQUERDA: LISTAGEM E CADASTRO DE TÓPICOS (8/12 colunas) -->
+    <section class="md:col-span-8 space-y-6">
+      
+      <div class="space-y-2">
+        <span class="text-[10px] font-mono text-brand-green tracking-widest uppercase block">DISCUSSÃO OPERACIONAL DE CAMPO</span>
+        <h1 class="text-3xl font-bold tracking-tight text-white font-heading">Fórum de <span class="text-brand-blue-sky">Operadores de Elite</span></h1>
+        <p class="text-xs text-zinc-400">
+          Compartilhe parâmetros operacionais de Downwash, receitas de caldas defensivas e calibração centrífuga de bicos agrícolas da XAG e DJI de forma off-line.
+        </p>
+      </div>
+
+      <!-- FILTRO DE CATEGORIAS E BOTÃO DE CRIAR TÓPICO -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-zinc-950 border border-zinc-900 p-4 rounded-xl relative">
+        <div class="flex flex-wrap gap-2 items-center" id="filter-buttons">
+          <button onclick="filterCategory('Todos')" id="btn-cat-Todos" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-blue-sky border border-brand-blue-sky/30 text-white shadow">Todos</button>
+          <button onclick="filterCategory('Calibração & Bicos')" id="btn-cat-Calibracao" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-900">Calibração & Bicos</button>
+          <button onclick="filterCategory('Dúvidas Técnicas')" id="btn-cat-Duvidas" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-900">Dúvidas Técnicas</button>
+        </div>
+
+        <button
+          onclick="toggleNewTopicForm()"
+          class="w-full sm:w-auto bg-brand-green hover:bg-brand-green-dark border border-brand-green/30 text-white font-bold text-xs px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
+        >
+          <span>＋</span> Criar Tópico
+        </button>
+      </div>
+
+      <!-- FORMULÁRIO DE NOVO TÓPICO (CONDICIONAL) -->
+      <form id="new-topic-form" onsubmit="createNewTopic(event)" class="hidden bg-zinc-950 border border-brand-green/35 p-6 rounded-2xl space-y-4 relative">
+        <div class="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-brand-green"></div>
+        <div class="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-brand-green"></div>
+
+        <div class="flex justify-between items-center pb-2 border-b border-zinc-900">
+          <span class="text-[10px] font-mono text-brand-green uppercase tracking-wider font-bold">ABRIR NOVA DISCUSSÃO</span>
+          <button type="button" onclick="toggleNewTopicForm()" class="text-zinc-550 hover:text-white text-xs font-mono">CANCELAR</button>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-mono text-zinc-400 uppercase">Título da Discussão</label>
+            <input
+              type="text"
+              id="new-title"
+              required
+              placeholder="Ex: Qual bico centrífugo atomizador usar para vazão de 15L/ha?"
+              class="w-full bg-zinc-900 border border-zinc-850 rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-brand-blue-sky/80 transition-all"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-mono text-zinc-400 uppercase">Categoria</label>
+            <select
+              id="new-category"
+              className="w-full bg-zinc-900 border border-zinc-850 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-blue-sky/80 transition-all font-mono"
+            >
+              <option value="Calibração & Bicos">Calibração & Bicos</option>
+              <option value="Dúvidas Técnicas">Dúvidas Técnicas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-[10px] font-mono text-zinc-400 uppercase">Conteúdo do Post</label>
+          <textarea
+            id="new-content"
+            required
+            rows="3"
+            placeholder="Descreva detalhadamente o problema ou a dica operacional..."
+            class="w-full bg-zinc-900 border border-zinc-850 rounded-lg p-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-brand-blue-sky/80 transition-all"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-brand-green hover:bg-brand-green-dark border border-brand-green/30 text-white font-bold text-xs py-3 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(46,125,50,0.1)]"
+        >
+          <span>✉</span> Publicar no Fórum
+        </button>
+      </form>
+
+      <!-- LISTAGEM DE DISCUSSÕES DINÂMICA -->
+      <div class="space-y-4" id="topics-container">
+        <!-- Injetado via Javascript -->
+      </div>
+
+    </section>
+
+    <!-- COLUNA DIREITA: INFORMAÇÕES DO GRUPO (4/12 colunas) -->
+    <section class="md:col-span-4 space-y-6">
+      
+      <!-- PAINEL OPERADORES ATIVOS -->
+      <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl space-y-4 relative">
+        <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-zinc-850"></div>
+        <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-zinc-850"></div>
+
+        <div class="space-y-1">
+          <span class="text-[9px] font-mono text-zinc-550 block">TELEMETRIA SOCIAL</span>
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Operadores Conectados</h3>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-900/60 text-center font-mono">
+          <div class="bg-zinc-900/20 p-3 rounded-lg border border-zinc-900">
+            <span class="text-base font-bold text-brand-green">148</span>
+            <p class="text-[8px] text-zinc-550 uppercase">Pilotos Ativos</p>
+          </div>
+          <div class="bg-zinc-900/20 p-3 rounded-lg border border-zinc-900">
+            <span class="text-base font-bold text-brand-blue-sky">24h</span>
+            <p class="text-[8px] text-zinc-550 uppercase">Suporte Campo</p>
+          </div>
+        </div>
+
+        <div class="space-y-3 pt-3 border-t border-zinc-900/60">
+          <span class="text-[9px] font-mono text-brand-amber uppercase tracking-wider font-bold block">★ DIRETRIZ RECOMENDADA</span>
+          <div class="text-[10px] text-zinc-400 leading-relaxed space-y-2 font-mono">
+            <p>● Mantenha distância de 3.5 metros sobre o topo.</p>
+            <p>● Homologação no MAPA é obrigatória por lei.</p>
+            <p>● Rotação ideal do atomizador centrífugo: 12.000 RPM.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="border-t border-zinc-900 bg-zinc-950/50 py-6 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-zinc-600 font-mono text-[9px]">
+      ECR DRONES • FÓRUM COMUNIDADE ESTÁTICO EXCLUSIVO PARA DEMONSTRAÇÃO OFF-LINE
+    </div>
+  </footer>
+
+  <!-- ── CORE JS INTERATIVIDADE ── -->
+  <script>
+    // Banco de dados inicial dos tópicos
+    let TOPICS = [
+      {
+        id: 't-1',
+        category: 'Calibração & Bicos',
+        title: 'Qual bico centrífugo atomizador usar para vazão de 15L/ha com calda oleosa em soja?',
+        content: 'Estou iniciando aplicações aéreas com o XAG P100PRO em soja utilizando calda oleosa e pesada. Gostaria de saber qual rotação do atomizador centrífugo vocês recomendam para evitar derivas e atingir o baixeiro com boa cobertura.',
+        authorName: 'Marcos Rezende',
+        authorRole: 'premium',
+        createdAt: '26/05/2026 às 14:32',
+        replies: [
+          {
+            authorName: 'Rômulo Nascimento',
+            authorRole: 'admin',
+            content: 'Olá Marcos! Para 15L/ha com calda oleosa no P100PRO, configure a rotação centrífuga do atomizador para gotas médias de 130 a 150 micras (rotação em torno de 12.000 RPM). Isso evita derivas pesadas sob vento normal de até 8 km/h e proporciona excelente penetração nas folhas inferiores.',
+            createdAt: '26/05/2026 às 16:15'
+          },
+          {
+            authorName: 'Célio Nascimento',
+            authorRole: 'admin',
+            content: 'Complementando o Rômulo, mantenha a altura de voo padrão em 3.5 metros sobre a soja. O Downwash das hélices trabalhará empurrando a névoa para o interior do baixeiro de forma ideal!',
+            createdAt: '26/05/2026 às 17:40'
+          }
+        ]
+      },
+      {
+        id: 't-2',
+        category: 'Dúvidas Técnicas',
+        title: 'Regulamentação MAPA (Portaria 298) e ANAC: Registro de Fazenda Privada',
+        content: 'Amigos, opero drones agrícolas em minha própria fazenda. Preciso registrar a operação no MAPA mesmo se a área for própria ou a homologação na ANAC já é suficiente?',
+        authorName: 'Adilson Souza',
+        authorRole: 'free',
+        createdAt: '25/05/2026 às 10:15',
+        replies: [
+          {
+            authorName: 'Rômulo Nascimento',
+            authorRole: 'admin',
+            content: 'Sim, Adilson! De acordo com a Portaria 298 do MAPA, todo aplicador aeroagrícola com aeronave Classe 3 (mais de 25kg) precisa registrar as operações de solo e voo, mesmo em área própria. Não deixe de fazer o registro no MAPA e o curso para evitar multas regulatórias pesadas!',
+            createdAt: '25/05/2026 às 12:40'
+          }
+        ]
+      }
+    ];
+
+    let currentFilter = 'Todos';
+    let expandedTopicId = null;
+
+    function renderTopics() {
+      const container = document.getElementById('topics-container');
+      container.innerHTML = '';
+
+      const filtered = currentFilter === 'Todos'
+        ? TOPICS
+        : TOPICS.filter(t => t.category === currentFilter);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 border border-zinc-900 rounded-2xl bg-zinc-950/45">
+            <p class="text-xs text-zinc-500 italic">Nenhum tópico encontrado nesta categoria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((topic) => {
+        const isExpanded = expandedTopicId === topic.id;
+        const repliesCount = topic.replies ? topic.replies.length : 0;
+
+        let repliesHtml = '';
+        if (isExpanded && topic.replies) {
+          topic.replies.forEach((reply) => {
+            let roleBadge = '';
+            if (reply.authorRole === 'admin') {
+              roleBadge = '<span class="px-1.5 py-0.2 rounded bg-brand-blue-sky/10 border border-brand-blue-sky/30 text-[7px] font-mono text-brand-blue-sky font-bold">ADMIN</span>';
+            } else if (reply.authorRole === 'premium') {
+              roleBadge = '<span class="px-1.5 py-0.2 rounded bg-brand-amber/10 border border-brand-amber/30 text-[7px] font-mono text-brand-amber font-bold">PREMIUM</span>';
+            }
+
+            repliesHtml += `
+              <div class="bg-zinc-900/30 border border-zinc-850 p-4 rounded-xl space-y-1 relative mt-3 ml-4 border-l border-zinc-800">
+                <div class="flex items-center justify-between text-[9px] font-mono text-zinc-500">
+                  <div class="flex items-center gap-1">
+                    <span class="text-white font-bold">${reply.authorName}</span>
+                    ${roleBadge}
+                  </div>
+                  <span>${reply.createdAt}</span>
+                </div>
+                <p class="text-xs text-zinc-300 leading-relaxed font-sans pl-2">${reply.content}</p>
+              </div>
+            `;
+          });
+
+          // Formulário de adicionar resposta rápida
+          repliesHtml += `
+            <form onsubmit="addReply(event, '${topic.id}')" class="pl-4 mt-4 space-y-2">
+              <div class="relative">
+                <input
+                  type="text"
+                  id="reply-input-${topic.id}"
+                  required
+                  placeholder="Responder a discussão com sua dica..."
+                  class="w-full bg-zinc-900 border border-zinc-850 rounded-lg pl-3 pr-10 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-brand-blue-sky/80 transition-all font-sans"
+                />
+                <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-blue-sky hover:text-white transition-colors">
+                  ➔
+                </button>
+              </div>
+            </form>
+          `;
+        }
+
+        let authorRoleBadge = '';
+        if (topic.authorRole === 'admin') {
+          authorRoleBadge = '<span class="px-1.5 py-0.2 rounded bg-brand-blue-sky/10 border border-brand-blue-sky/30 text-[7px] font-mono text-brand-blue-sky font-bold">ADMIN</span>';
+        } else if (topic.authorRole === 'premium') {
+          authorRoleBadge = '<span class="px-1.5 py-0.2 rounded bg-brand-amber/10 border border-brand-amber/30 text-[7px] font-mono text-brand-amber font-bold">PREMIUM</span>';
+        }
+
+        const div = document.createElement('div');
+        div.className = `bg-zinc-950 border rounded-2xl p-6 space-y-4 relative overflow-hidden transition-all duration-300 ${
+          isExpanded ? 'border-brand-blue-sky/40 shadow-sm' : 'border-zinc-900 hover:border-zinc-850'
+        }`;
+        
+        div.innerHTML = `
+          <div class="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-zinc-900"></div>
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-850 text-[8px] font-mono text-zinc-400 uppercase font-semibold">
+                ${topic.category}
+              </span>
+              <span class="text-[10px] font-mono text-zinc-500">
+                Postado por: <span class="text-white font-bold">${topic.authorName}</span>
+              </span>
+              ${authorRoleBadge}
+            </div>
+            <span class="text-[9px] font-mono text-zinc-550 flex items-center gap-1">
+              📅 ${topic.createdAt}
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <h3 onclick="toggleTopic('${topic.id}')" class="text-base font-bold text-white tracking-tight hover:text-brand-blue-sky transition-colors cursor-pointer">
+              ${topic.title}
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">${topic.content}</p>
+          </div>
+
+          <div class="flex justify-between items-center pt-3 border-t border-zinc-900/60 text-[11px] font-mono">
+            <span class="text-zinc-500 flex items-center gap-1.5">
+              💬 <span class="text-white font-bold">${repliesCount}</span> respostas
+            </span>
+            <button onclick="toggleTopic('${topic.id}')" class="text-brand-blue-sky hover:underline cursor-pointer">
+              ${isExpanded ? 'Ocultar Respostas ▲' : 'Visualizar Discussão ▼'}
+            </button>
+          </div>
+
+          <div class="space-y-3">${repliesHtml}</div>
+        `;
+        
+        container.appendChild(div);
+      });
+    }
+
+    function toggleTopic(id) {
+      if (expandedTopicId === id) {
+        expandedTopicId = null;
+      } else {
+        expandedTopicId = id;
+      }
+      renderTopics();
+    }
+
+    function filterCategory(cat) {
+      currentFilter = cat;
+
+      // Reseta botões
+      const cats = ['Todos', 'Calibracao', 'Duvidas'];
+      document.getElementById('btn-cat-Todos').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-900";
+      document.getElementById('btn-cat-Calibracao').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-900";
+      document.getElementById('btn-cat-Duvidas').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-900";
+
+      if (cat === 'Todos') {
+        document.getElementById('btn-cat-Todos').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-blue-sky border border-brand-blue-sky/30 text-white shadow";
+      } else if (cat === 'Calibração & Bicos') {
+        document.getElementById('btn-cat-Calibracao').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-blue-sky border border-brand-blue-sky/30 text-white shadow";
+      } else if (cat === 'Dúvidas Técnicas') {
+        document.getElementById('btn-cat-Duvidas').className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-blue-sky border border-brand-blue-sky/30 text-white shadow";
+      }
+
+      renderTopics();
+    }
+
+    function toggleNewTopicForm() {
+      const el = document.getElementById('new-topic-form');
+      el.classList.toggle('hidden');
+    }
+
+    function createNewTopic(e) {
+      e.preventDefault();
+      const title = document.getElementById('new-title').value;
+      const category = document.getElementById('new-category').value;
+      const content = document.getElementById('new-content').value;
+
+      const newTopic = {
+        id: `t-${Date.now()}`,
+        category,
+        title,
+        content,
+        authorName: 'Marcos Rezende',
+        authorRole: 'premium',
+        createdAt: new Date().toLocaleDateString('pt-BR') + ' às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        replies: []
+      };
+
+      TOPICS.unshift(newTopic);
+      document.getElementById('new-title').value = '';
+      document.getElementById('new-content').value = '';
+      toggleNewTopicForm();
+      renderTopics();
+    }
+
+    function addReply(e, topicId) {
+      e.preventDefault();
+      const input = document.getElementById(`reply-input-${topicId}`);
+      const text = input.value;
+      if (!text) return;
+
+      const topic = TOPICS.find(t => t.id === topicId);
+      if (topic) {
+        if (!topic.replies) topic.replies = [];
+        
+        topic.replies.push({
+          authorName: 'Marcos Rezende',
+          authorRole: 'premium',
+          content: text,
+          createdAt: new Date().toLocaleDateString('pt-BR') + ' às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+        });
+      }
+
+      input.value = '';
+      renderTopics();
+    }
+
+    // Inicialização
+    renderTopics();
+  </script>
+</body>
+</html>

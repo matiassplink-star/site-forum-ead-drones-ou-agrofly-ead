@@ -29,7 +29,7 @@ export default function ECRDronesLogo({
 
   // Mapeamento dos caminhos das imagens oficiais reais disponibilizadas na pasta public
   const officialImages: Record<number, string> = {
-    1: '/ECR_Drones_Versao_1_Principal_Escura.webp',
+    1: '/ECR_Drones_Versao_1_Principal_Escura.png',
     2: '/ECR_Drones_Versao_2_Principal_Claro.png',
     3: '/ECR_Drones_Versao_3_Horizontal_Completa.png',
     4: '/ECR_Drones_Versao_4_Vertical_Empilhada.png',

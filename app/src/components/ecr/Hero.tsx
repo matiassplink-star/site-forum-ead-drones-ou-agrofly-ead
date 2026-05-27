@@ -75,7 +75,7 @@ export default function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-amber opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-amber"></span>
           </span>
-          <span className="text-[10px] sm:text-xs font-mono font-medium text-white/90">SYS // OK // PRECISION_ACTIVE</span>
+          <span className="text-[10px] sm:text-xs font-mono font-medium text-white/90">TURMAS ABERTAS 2026</span>
         </div>
 
         {/* Headline Principal de Impacto Absoluto */}

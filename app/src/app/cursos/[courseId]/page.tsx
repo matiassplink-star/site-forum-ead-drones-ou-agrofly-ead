@@ -10,7 +10,7 @@ import {
 } from '@/lib/mockAuth';
 import { 
   ArrowLeft, CheckCircle2, Lock, PlayCircle, BookOpen, Clock, 
-  CheckSquare, Square, ChevronRight, X, Sparkles, Award, Star, Compass
+  CheckSquare, Square, ChevronRight, X, Sparkles, Award, Star, Compass, MessageSquare
 } from 'lucide-react';
 
 interface Lesson {
@@ -35,7 +35,6 @@ export default function SalaDeAulaPage() {
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [successUpgrade, setSuccessUpgrade] = useState(false);
 
-  // Aulas estáticas base por curso
   const STATIC_LESSONS: Record<string, Omit<Lesson, 'id'>[]> = {
     introducao: [
       {
@@ -136,7 +135,6 @@ export default function SalaDeAulaPage() {
       return;
     }
     
-    // Bloqueia acesso se usuário free tentar entrar em curso premium
     const isPremiumCourse = courseId === 'mapeamento' || courseId === 'pulverizacao';
     if (isPremiumCourse && activeSession.role === 'free') {
       setSession(activeSession);
@@ -149,7 +147,6 @@ export default function SalaDeAulaPage() {
     // Carrega progresso
     setCompletedLessons(getCompletedLessons());
 
-    // Consolida aulas (estáticas + dinâmicas do admin)
     const baseLessons = STATIC_LESSONS[courseId] || [];
     const baseLessonsWithIds = baseLessons.map((l, idx) => ({
       ...l,
@@ -181,7 +178,7 @@ export default function SalaDeAulaPage() {
   };
 
   const handleToggleComplete = (lessonId: string) => {
-    const wasCompleted = toggleLessonCompleted(lessonId);
+    toggleLessonCompleted(lessonId);
     setCompletedLessons(getCompletedLessons());
   };
 
@@ -199,15 +196,14 @@ export default function SalaDeAulaPage() {
     setTimeout(() => {
       setSuccessUpgrade(false);
       setShowCheckoutModal(false);
-      // Recarrega a página para inicializar os cursos liberados
       window.location.reload();
     }, 2000);
   };
 
   if (showCheckoutModal) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-        <div className="relative bg-zinc-950 border border-brand-amber/40 shadow-[0_0_40px_rgba(245,127,23,0.12)] max-w-md w-full p-8 rounded-2xl space-y-6">
+      <div className="min-h-screen bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="relative bg-white border border-zinc-200 shadow-xl max-w-md w-full p-8 rounded-2xl space-y-6 text-zinc-950">
           <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-brand-amber" />
           <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-brand-amber" />
           <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-brand-amber" />
@@ -215,30 +211,30 @@ export default function SalaDeAulaPage() {
 
           {successUpgrade ? (
             <div className="text-center py-8 space-y-4 animate-scale-up">
-              <div className="w-16 h-16 bg-brand-green/20 border border-brand-green/50 text-brand-green rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(46,125,50,0.2)]">
+              <div className="w-16 h-16 bg-emerald-50 border border-brand-green/30 text-brand-green rounded-full flex items-center justify-center mx-auto shadow-sm">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h3 className="text-xl font-bold text-white">Upgrade Concluído!</h3>
-              <p className="text-xs text-zinc-400 font-mono">
+              <h3 className="text-xl font-bold font-heading">Upgrade Concluído!</h3>
+              <p className="text-xs text-zinc-550 font-mono">
                 Sua conta foi atualizada para <span className="text-brand-green font-bold">PREMIUM</span> na hora.
               </p>
-              <p className="text-[10px] text-zinc-500 tracking-widest font-mono uppercase animate-pulse">LIBERANDO ACESSO GERAL...</p>
+              <p className="text-[10px] text-zinc-400 tracking-widest font-mono uppercase animate-pulse">LIBERANDO ACESSO GERAL...</p>
             </div>
           ) : (
             <>
               <div className="space-y-2 text-center">
-                <div className="w-12 h-12 bg-brand-amber/10 border border-brand-amber/30 text-brand-amber rounded-xl flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 bg-amber-50 border border-brand-amber/20 text-brand-amber rounded-xl flex items-center justify-center mx-auto">
                   <Lock className="w-6 h-6 animate-bounce" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Acesso Restrito</h3>
-                <p className="text-xs text-zinc-400">
+                <h3 className="text-lg font-bold font-heading">Acesso Restrito</h3>
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Esta trilha é reservada a alunos <span className="text-brand-amber font-semibold">Premium Elite</span> da ECR Drones.
                 </p>
               </div>
 
-              <div className="space-y-3 bg-zinc-900/40 border border-zinc-850 p-4 rounded-xl">
-                <span className="text-[9px] font-mono text-brand-amber tracking-widest uppercase font-bold">O QUE VOCÊ TERÁ ACESSO:</span>
-                <ul className="space-y-1.5 text-xs text-zinc-300">
+              <div className="space-y-3 bg-zinc-50 border border-zinc-200 p-4 rounded-xl">
+                <span className="text-[9px] font-mono text-brand-amber tracking-widest uppercase font-bold block mb-1">O QUE VOCÊ TERÁ ACESSO:</span>
+                <ul className="space-y-1.5 text-xs text-zinc-650">
                   <li className="flex items-center gap-1.5">✔ Aulas práticas detalhadas (NDVI + Calibração)</li>
                   <li className="flex items-center gap-1.5">✔ Fórum técnico de caldas com instrutores</li>
                   <li className="flex items-center gap-1.5">✔ Downloads ilimitados de manuais</li>
@@ -246,17 +242,17 @@ export default function SalaDeAulaPage() {
                 </ul>
               </div>
 
-              <div className="space-y-3 border-t border-zinc-900 pt-4">
+              <div className="space-y-3 border-t border-zinc-150 pt-4">
                 <button
                   onClick={handleSimulatedUpgrade}
-                  className="w-full bg-brand-amber hover:bg-brand-amber-dark border border-brand-amber/40 hover:border-brand-amber/80 text-brand-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(245,127,23,0.1)]"
+                  className="w-full bg-brand-amber hover:bg-brand-amber/90 text-brand-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm text-sm"
                 >
                   <Sparkles className="w-4 h-4 text-brand-black animate-pulse" />
                   Ativar Conta Premium (Simular)
                 </button>
                 <button
                   onClick={() => router.push('/cursos')}
-                  className="w-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-850 text-white py-2 rounded-lg text-xs transition-colors"
+                  className="w-full bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-500 py-2 rounded-lg text-xs transition-colors"
                 >
                   Voltar para Trilhas Livres
                 </button>
@@ -270,7 +266,7 @@ export default function SalaDeAulaPage() {
 
   if (loading || !activeLesson) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center font-mono">
+      <div className="min-h-screen bg-[#F8F9FA] text-zinc-900 flex items-center justify-center font-mono">
         <div className="flex flex-col items-center gap-4">
           <span className="w-10 h-10 border-4 border-brand-green border-t-transparent rounded-full animate-spin" />
           <p className="text-xs text-brand-green tracking-widest uppercase animate-pulse">Sincronizando Player...</p>
@@ -288,53 +284,63 @@ export default function SalaDeAulaPage() {
   const isCurrentCompleted = completedLessons.includes(activeLesson.id);
 
   return (
-    <div className="min-h-screen bg-black text-white relative flex flex-col font-sans overflow-x-hidden selection:bg-brand-green selection:text-white">
+    <div className="min-h-screen bg-[#F8F9FA] text-zinc-950 relative flex flex-col font-sans overflow-x-hidden selection:bg-brand-green selection:text-white">
       
-      {/* ── GRID DE FUNDO OPERACIONAL ── */}
+      {/* ── GRID DE FUNDO OPERACIONAL SUAVE ── */}
       <div 
-        className="fixed inset-0 pointer-events-none z-0 opacity-15" 
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" 
         style={{
           backgroundImage: `
-            linear-gradient(rgba(46, 125, 50, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(46, 125, 50, 0.04) 1px, transparent 1px)
+            linear-gradient(rgba(46, 125, 50, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(46, 125, 50, 0.4) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }} 
         aria-hidden="true"
       />
 
-      {/* ── NAVBAR SUPERIOR ── */}
-      <header className="relative z-10 border-b border-zinc-900 bg-zinc-950/70 backdrop-blur-xl">
+      {/* ── NAVBAR SUPERIOR CLARA ── */}
+      <header className="relative z-10 border-b border-zinc-200 bg-white/95 backdrop-blur-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/cursos" className="p-2 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-850 hover:border-zinc-700 text-zinc-400 hover:text-white transition-all cursor-pointer">
+            <Link href="/cursos" className="p-2 rounded bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-500 hover:text-zinc-900 transition-all cursor-pointer">
               <ArrowLeft className="w-4 h-4" />
             </Link>
-            <div className="h-6 w-px bg-zinc-900" />
+            <div className="h-6 w-px bg-zinc-200" />
             <span className="text-xs font-mono font-bold text-brand-green uppercase tracking-wider">{courseTitle}</span>
           </div>
 
           <div className="flex items-center gap-3">
+            {/* BOTÃO FALAR COM PILOTO */}
+            <a
+              href="https://wa.me/5514999999999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-brand-green/20 text-brand-green text-xs font-bold transition-all duration-300 shadow-sm cursor-pointer mr-2"
+              title="Falar com Piloto (WhatsApp)"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Falar com Piloto</span>
+            </a>
             <ECRDronesLogo version={5} size={30} />
           </div>
         </div>
       </header>
 
-      {/* ── CONTEÚDO PRINCIPAL (DOUBLES COLUNAS) ── */}
+      {/* ── CONTEÚDO PRINCIPAL (TELA CLARA) ── */}
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid md:grid-cols-12 gap-8 items-start">
         
         {/* COLUNA ESQUERDA: PLAYER E CONTEÚDO PRINCIPAL (8/12 colunas) */}
         <section className="md:col-span-8 space-y-6">
           
-          {/* PLAYER DE VÍDEO DO YOUTUBE PREMIUM */}
-          <div className="relative bg-zinc-950 border border-zinc-900 p-2 rounded-2xl overflow-hidden group shadow-[0_0_30px_rgba(46,125,50,0.02)]">
+          {/* PLAYER DE VÍDEO COMPLETO E CLEAN */}
+          <div className="relative bg-white border border-zinc-200 p-2 rounded-2xl overflow-hidden shadow-sm">
             {/* Cantoneiras HUD */}
-            <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-brand-green" />
-            <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-brand-green" />
-            <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-brand-green" />
-            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-brand-green" />
+            <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-zinc-350" />
+            <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-zinc-350" />
+            <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-zinc-350" />
+            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-zinc-350" />
 
-            {/* EMBED YOUTUBE RESPONSIVO */}
             <div className="relative aspect-video rounded-xl overflow-hidden bg-black">
               <iframe
                 src={`https://www.youtube.com/embed/${activeLesson.youtubeId}?autoplay=0&rel=0&modestbranding=1`}
@@ -346,29 +352,29 @@ export default function SalaDeAulaPage() {
             </div>
           </div>
 
-          {/* DETALHES DA AULA SELECIONADA */}
-          <div className="bg-zinc-950 border border-zinc-900 p-6 rounded-2xl space-y-4 relative">
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-zinc-850" />
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-zinc-850" />
+          {/* DETALHES DA AULA */}
+          <div className="bg-white border border-zinc-200 p-6 rounded-2xl space-y-4 relative shadow-sm">
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-zinc-150" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-zinc-150" />
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-1">
-                <span className="text-[9px] font-mono text-zinc-500 tracking-widest uppercase">MÓDULO DE VOOS • TELEMETRIA</span>
-                <h2 className="text-xl font-bold text-white tracking-tight">{activeLesson.title}</h2>
+                <span className="text-[9px] font-mono text-zinc-400 tracking-widest uppercase block">MÓDULO DE APRENDIZADO • CAMPO</span>
+                <h2 className="text-xl font-bold text-zinc-900 font-heading tracking-tight">{activeLesson.title}</h2>
                 <div className="flex items-center gap-3 text-[10px] font-mono text-zinc-400">
-                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-zinc-500" /> {activeLesson.duration}</span>
-                  <span className="h-3 w-px bg-zinc-800" />
-                  <span className="text-brand-green">SESSÃO CRIPTOGRAFADA</span>
+                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-zinc-400" /> {activeLesson.duration}</span>
+                  <span className="h-3 w-px bg-zinc-200" />
+                  <span className="text-brand-green font-semibold">SEGURANÇA REGULADA</span>
                 </div>
               </div>
 
-              {/* BOTÃO "CONCLUIR AULA" INTEGRADO AO LOCALSTORAGE */}
+              {/* BOTÃO "CONCLUIR AULA" */}
               <button
                 onClick={() => handleToggleComplete(activeLesson.id)}
                 className={`flex items-center gap-2 font-bold text-xs px-5 py-3 rounded-xl border transition-all cursor-pointer ${
                   isCurrentCompleted 
-                    ? 'bg-brand-green/10 border-brand-green/30 text-brand-green shadow-[0_0_15px_rgba(46,125,50,0.08)]' 
-                    : 'bg-zinc-900 border-zinc-850 hover:border-brand-green/50 text-white'
+                    ? 'bg-emerald-50 border-brand-green/30 text-brand-green shadow-sm' 
+                    : 'bg-zinc-900 border-zinc-800 hover:bg-brand-green text-white'
                 }`}
               >
                 {isCurrentCompleted ? (
@@ -378,18 +384,18 @@ export default function SalaDeAulaPage() {
                   </>
                 ) : (
                   <>
-                    <Square className="w-4 h-4 text-zinc-500 hover:text-brand-green transition-colors" />
+                    <Square className="w-4 h-4 text-zinc-455 transition-colors" />
                     Marcar como Concluída
                   </>
                 )}
               </button>
             </div>
 
-            <div className="h-px bg-zinc-900" />
+            <div className="h-px bg-zinc-150" />
 
             <div className="space-y-2">
-              <h4 className="text-[10px] font-mono text-brand-amber uppercase tracking-wider">PRESCRICAO DE CONTEUDO E OBJETIVOS</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+              <h4 className="text-[10px] font-mono text-brand-amber uppercase tracking-wider font-bold">Resumo e Parâmetros Técnicos</h4>
+              <p className="text-xs text-zinc-650 leading-relaxed font-sans">
                 {activeLesson.desc}
               </p>
             </div>
@@ -397,21 +403,21 @@ export default function SalaDeAulaPage() {
 
         </section>
 
-        {/* COLUNA DIREITA: GRADE DE AULAS (4/12 colunas) */}
-        <section className="md:col-span-4 bg-zinc-950 border border-zinc-900 rounded-2xl p-4 space-y-4 relative">
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-zinc-850" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-zinc-850" />
+        {/* COLUNA DIREITA: GRADE DE AULAS CLARA (4/12 colunas) */}
+        <section className="md:col-span-4 bg-white border border-zinc-200 rounded-2xl p-4 space-y-4 relative shadow-sm">
+          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-zinc-150" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-zinc-150" />
 
-          <div className="space-y-1 pb-3 border-b border-zinc-900">
-            <span className="text-[9px] font-mono text-brand-green tracking-widest uppercase block">GRADE OPERACIONAL</span>
-            <h3 className="text-xs font-bold text-white">Conteúdo do Curso</h3>
-            <p className="text-[9px] text-zinc-500 font-mono">
+          <div className="space-y-1 pb-3 border-b border-zinc-150">
+            <span className="text-xs font-mono text-brand-green tracking-widest uppercase block font-bold">GRADE DE AULAS</span>
+            <h3 className="text-sm font-extrabold text-zinc-900">Módulos de Estudo</h3>
+            <p className="text-xs text-zinc-500 font-mono font-medium">
               {lessons.filter(l => completedLessons.includes(l.id)).length} de {lessons.length} aulas finalizadas
             </p>
           </div>
 
           {/* LISTA COMPLETA DE AULAS */}
-          <div className="space-y-2 max-h-[480px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+          <div className="space-y-2 max-h-[480px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-300">
             {lessons.map((lesson, index) => {
               const isSelected = activeLesson.id === lesson.id;
               const isCompleted = completedLessons.includes(lesson.id);
@@ -422,33 +428,32 @@ export default function SalaDeAulaPage() {
                   onClick={() => handleLessonSelect(lesson)}
                   className={`p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 ${
                     isSelected 
-                      ? 'bg-zinc-900/60 border-brand-green/40 shadow-[0_0_15px_rgba(46,125,50,0.03)]' 
-                      : 'bg-zinc-950 border-zinc-900/50 hover:border-zinc-850 hover:bg-zinc-900/20'
+                      ? 'bg-zinc-50 border-brand-green/45 shadow-sm' 
+                      : 'bg-white border-zinc-200/60 hover:bg-zinc-50/50'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    {/* Número/Ícone */}
+                    {/* Número */}
                     <div className={`w-6 h-6 rounded-lg flex-shrink-0 flex items-center justify-center text-[10px] font-mono font-bold ${
                       isSelected 
-                        ? 'bg-brand-green/20 text-brand-green border border-brand-green/30' 
+                        ? 'bg-brand-green/10 text-brand-green border border-brand-green/20' 
                         : isCompleted 
-                          ? 'bg-zinc-900 text-brand-green' 
-                          : 'bg-zinc-900 text-zinc-500'
+                          ? 'bg-zinc-100 text-brand-green' 
+                          : 'bg-zinc-100 text-zinc-450'
                     }`}>
                       {index + 1}
                     </div>
 
-                    <div className="space-y-0.5">
-                      <p className={`text-xs font-bold leading-tight ${isSelected ? 'text-brand-green' : 'text-white'}`}>
+                    <div className="space-y-0.5 flex-1">
+                      <p className={`text-xs font-bold leading-tight ${isSelected ? 'text-brand-green' : 'text-zinc-900'}`}>
                         {lesson.title}
                       </p>
-                      <span className="text-[9px] font-mono text-zinc-500 block">
+                      <span className="text-[9px] font-mono text-zinc-400 block">
                         Duração: {lesson.duration}
                       </span>
                     </div>
                   </div>
 
-                  {/* Badge de Check Concluído */}
                   {isCompleted && (
                     <CheckCircle2 className="w-4 h-4 text-brand-green flex-shrink-0 animate-scale-up" />
                   )}
@@ -461,15 +466,15 @@ export default function SalaDeAulaPage() {
 
       </main>
 
-      {/* ── FOOTER ── */}
-      <footer className="mt-16 border-t border-zinc-900 bg-zinc-950/45 py-8 relative z-10">
+      {/* FOOTER */}
+      <footer className="mt-16 border-t border-zinc-200 bg-white py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
           <div className="flex items-center gap-3 justify-center">
             <ECRDronesLogo version={5} size={25} />
-            <span className="text-[10px] font-mono text-zinc-500">ECR DRONES • SALA DE AULAS MVP</span>
+            <span className="text-[10px] font-mono text-zinc-400">ECR DRONES • SALA DE AULAS</span>
           </div>
-          <p className="text-[10px] font-mono text-zinc-650">
-            Player integrado com YouTube de altíssima fidelidade.
+          <p className="text-[10px] font-mono text-zinc-500">
+            Aplicações dinâmicas simuladas com local storage.
           </p>
         </div>
       </footer>
