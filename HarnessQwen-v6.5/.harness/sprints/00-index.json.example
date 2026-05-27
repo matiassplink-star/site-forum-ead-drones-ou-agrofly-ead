@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "_isTemplate": true,
+    "_description": "Template GENERICO de 00-index.json. Renomeie para 00-index.json (sem .example) e edite o conteudo conforme o projeto. Lista TODAS as sprints + status agregado.",
+    "_howToUse": [
+      "1. cp .harness/sprints/00-index.json.example .harness/sprints/00-index.json",
+      "2. Edite projectName, totalSprints, description",
+      "3. Edite o array 'sprints' com TODAS as sprints do projeto",
+      "4. Cada entry em 'sprints' deve apontar para um arquivo NN-<nome>.json existente em .harness/sprints/",
+      "5. featuresCount deve bater com features.length de cada sprint JSON"
+    ]
+  },
+  "projectName": "<NOME-DO-PROJETO>",
+  "specPath": "SPEC.md",
+  "totalSprints": 0,
+  "schemaVersion": 3,
+  "description": "<1-3 linhas resumo do projeto + pipeline geral + pontos criticos (e.g. 'AUTOPILOT TOTAL: nunca pause para validacao visual; bugs visuais corrigidos pos sprint N.')>",
+  "sprints": [
+    {
+      "index": 0,
+      "file": "00-bootstrap-dx.json",
+      "name": "Sprint 00 - Bootstrap DX (configs IDE)",
+      "status": "pending",
+      "featuresCount": 4,
+      "notes": "Sprint curta. Sem typecheck (npm nem instalado ainda)."
+    },
+    {
+      "index": 1,
+      "file": "01-fundacao.json",
+      "name": "Sprint 01 - Fundacao (package.json + tsconfigs + shared/types.ts)",
+      "status": "pending",
+      "featuresCount": 7,
+      "notes": "Inclui npm install obrigatorio (v6.3 postInstall gate). TODAS as deps + @types/* upfront."
+    },
+    {
+      "index": 2,
+      "file": "02-db-layer.json",
+      "name": "Sprint 02 - DB layer (se aplicavel)",
+      "status": "pending",
+      "featuresCount": 6,
+      "notes": "Schema + migrations + repos com prepared statements LAZY (regra 13)."
+    },
+    {
+      "index": 3,
+      "file": "03-auth.json",
+      "name": "Sprint 03 - Auth backend + smoke incremental",
+      "status": "pending",
+      "featuresCount": 6,
+      "notes": "INCLUI smoke backend (v6.3: smoke antecipado pra cedo, anti-acumulo de bugs)."
+    },
+    {
+      "index": 99,
+      "file": "99-final-review.json",
+      "name": "Sprint Final Review (v6.5 template)",
+      "status": "pending",
+      "featuresCount": 5,
+      "notes": "OBRIGATORIO. Roda audit-final.py + corrige por categoria (CONSISTENCY/DEAD_CODE/SECURITY/ANTI_PATTERN/DUPLICATION+TODO). Renumere conforme TOTAL_SPRINTS."
+    }
+  ]
+}

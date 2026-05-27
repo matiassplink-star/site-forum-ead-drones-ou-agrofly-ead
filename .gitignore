@@ -1,0 +1,12 @@
+# Pastas temporárias de análise do Claude/Antigravity
+scratch/
+HarnessQwen-v6.5/
+.agents/
+
+# Next.js build e logs locais
+app/.next/
+app/node_modules/
+node_modules/
+.env*.local
+.DS_Store
+*.log

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Outfit, Inter } from 'next/font/google'
+import { Exo_2, Inter } from 'next/font/google'
 import './globals.css'
 
-const outfit = Outfit({
+const exo2 = Exo_2({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  variable: '--font-exo-2',
   display: 'swap',
 })
 
@@ -15,13 +15,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'ECR Drones — Cursos de Drones Agrícolas',
+  title: 'ECR Drones — Escola de Capacitação Rural em Drones',
   description:
-    'Plataforma completa de treinamento em drones agrícolas: mapeamento NDVI, pulverização autônoma e legislação ANAC. Junte-se à maior comunidade de operadores de drone do agronegócio.',
-  keywords: ['drones agrícolas', 'curso drone', 'pulverização drone', 'mapeamento NDVI', 'ECR Drones'],
+    'Domine a tecnologia de drones agrícolas com a ECR Drones: mapeamento NDVI, pulverização autônoma e legislação ANAC. Terra + Tecnologia + Elevação.',
+  keywords: ['drones agrícolas', 'curso drone', 'pulverização drone', 'mapeamento NDVI', 'ECR Drones', 'capacitação rural'],
   openGraph: {
-    title: 'ECR Drones — Cursos de Drones Agrícolas',
-    description: 'Aprenda a operar drones agrícolas com os melhores especialistas do Brasil.',
+    title: 'ECR Drones — Capacitação Tecnológica para o Agronegócio',
+    description: 'Capacitação prática em drones de pulverização e mapeamento aéreo com foco no campo.',
     type: 'website',
   },
 }
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={`${exo2.variable} ${inter.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   )

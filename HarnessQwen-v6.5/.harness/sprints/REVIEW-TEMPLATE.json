@@ -1,0 +1,193 @@
+{
+  "_meta": {
+    "_isTemplate": true,
+    "_description": "Template GENERICO de Sprint de Revisao Final (v6.5). Copie para o final do pipeline da sua sprint (e.g. 99-final-review.json), ajuste o numero conforme TOTAL_SPRINTS, e adicione ao 00-index.json. Roda DEPOIS de todas as sprints de implementacao, ANTES do DONE. Causa raiz: LLMs medios nao conseguem revisar 60+ arquivos simultaneamente; revisao categorizada por classe permite revisao incremental focada.",
+    "_howToUse": [
+      "1. cp .harness/sprints/REVIEW-TEMPLATE.json .harness/sprints/<N>-final-review.json",
+      "2. Edite o campo 'index' para o numero apropriado",
+      "3. Adicione entrada no 00-index.json (incrementando totalSprints)",
+      "4. Execute via /develop normalmente apos as outras sprints",
+      "5. Cada feature roda audit-final.py + corrige UMA categoria de findings"
+    ]
+  },
+  "index": 99,
+  "name": "Sprint Review Final: audit + correcoes categorizadas (v6.5 template)",
+  "status": "pending",
+  "description": "Sprint final automatica de revisao arquitetural. Executa audit-final.py que gera relatorio categorizado em /tmp/harness/audit-final.json. Cada feature consome UMA categoria de findings e aplica correcao. Stack-agnostic: serve para qualquer projeto TS/Node. NAO executa testes novos — apenas revisa o que ja foi implementado. NAO valida sintaxe — typecheck ja garantiu isso. FOCO: inconsistencias logicas, dead code, security, anti-patterns, duplicacao, TODOs residuais.",
+  "features": [
+    {
+      "id": "feat-001",
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "title": "Audit run + consistency/imports findings",
+      "description": "Roda audit-final.py que gera relatorio categorizado. Apos primeira rodada, consome categoria CONSISTENCY: corrige cada finding HIGH (uso inconsistente cross-file de simbolo, imports que nao resolvem). Esta feature NAO termina ate todos os findings HIGH de CONSISTENCY estarem resolvidos. Pode rodar audit-final.py multiplas vezes durante a feature para validar progresso.",
+      "specLines": "none",
+      "files": [],
+      "acceptanceCriteria": [
+        "Executou `python3 .harness/scripts/audit-final.py` no inicio da feature, JSON gerado em /tmp/harness/audit-final.json.",
+        "Para cada finding category=CONSISTENCY severity=HIGH, aplicou correcao: padronizou uso do simbolo OU corrigiu path errado.",
+        "Apos correcoes, re-executar audit-final.py mostra 0 findings HIGH em categoria CONSISTENCY.",
+        "Typecheck (`npm run typecheck`) continua exit=0 apos as correcoes.",
+        "Smoke (`npm run smoke`) continua passando."
+      ],
+      "hints": [
+        "Pattern: rodar audit gera JSON. Ler /tmp/harness/audit-final.json, filtrar findings.category=='CONSISTENCY', iterar.",
+        "Tipico fix de CONSISTENCY: factory function chamada com `(arg)` em metade dos arquivos e sem chamar na outra metade. Decidir qual padrao e canonico (geralmente o que ja esta funcionando no smoke) e padronizar.",
+        "Edge case: se inconsistency e por TIPO diferente (e.g. `: string` em um lugar, `: number` em outro), pode ser bug real no codigo, nao so estilistico. Revise com cuidado."
+      ],
+      "verification": {
+        "typecheck": true,
+        "parseable": false,
+        "auditCategory": {
+          "category": "CONSISTENCY",
+          "maxSeverity": "MED",
+          "command": "python3 .harness/scripts/audit-final.py",
+          "expectExitCode": [0, 1],
+          "passCondition": "by_severity HIGH em category CONSISTENCY deve ser 0"
+        }
+      }
+    },
+    {
+      "id": "feat-002",
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "title": "Dead code sweep: unused imports/vars + arquivos orfaos",
+      "description": "Consome categoria DEAD_CODE do audit. Remove imports nao usados (TS6133, TS6196). Remove variaveis declaradas e nao consumidas. Identifica arquivos TS que nao sao importados de lugar nenhum (orfaos) e decide: remover OU justificar (entry point, etc).",
+      "specLines": "none",
+      "files": [],
+      "acceptanceCriteria": [
+        "Cada finding category=DEAD_CODE do audit foi tratado: import/var removido OU mantido com justificativa em comentario.",
+        "Re-rodar `npm run typecheck` retorna exit=0 sem erros TS6133/TS6196.",
+        "Re-rodar audit-final.py mostra 0 findings em category=DEAD_CODE severity HIGH/MED.",
+        "Smoke continua passando."
+      ],
+      "hints": [
+        "Edge case: alguns imports parecem unused mas tem side effects (e.g. `import 'reflect-metadata'`). NAO remover esses — adicionar comment `// side-effect import`.",
+        "Edge case: var prefixada com `_` (e.g. `_unused`) e convencao para 'declarado intencional'. Se TS reclamar mesmo assim, adicionar `// @ts-expect-error` OU prefixar param tambem (`_req` em vez de `req`).",
+        "Arquivo orfao: rodar `grep -r 'from .*<nome-do-arquivo>' .` para confirmar zero consumers."
+      ],
+      "verification": {
+        "typecheck": true,
+        "parseable": false,
+        "auditCategory": {
+          "category": "DEAD_CODE",
+          "maxSeverity": "LOW",
+          "command": "python3 .harness/scripts/audit-final.py",
+          "passCondition": "by_severity HIGH+MED em category DEAD_CODE deve ser 0"
+        }
+      }
+    },
+    {
+      "id": "feat-003",
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "title": "Security audit: secrets, logs sensiveis, defaults de framework",
+      "description": "Consome categoria SECURITY do audit. NUNCA aceita finding HIGH residual. Tipos comuns: API keys hardcoded (deveriam ser env), console.log de token/password/auth, defaults inseguros de Electron (nodeIntegration:true, contextIsolation:false, sandbox:false), CSP fraco.",
+      "specLines": "none",
+      "files": [],
+      "acceptanceCriteria": [
+        "Cada finding category=SECURITY severity=HIGH foi corrigido: secret movido pra env, log removido OU redact, default trocado.",
+        "Apos correcoes, re-rodar audit-final.py mostra 0 findings HIGH em category=SECURITY.",
+        "Se Electron: contextIsolation:true, nodeIntegration:false, sandbox:true confirmados em todos os BrowserWindow.",
+        "Se backend HTTP: CSP estrito confirmado em renderer HTML.",
+        "Typecheck e smoke continuam passando."
+      ],
+      "hints": [
+        "Pattern: API key em .env.example com placeholder, leitura via process.env.X em runtime. NUNCA literal no codigo.",
+        "Edge case: log de erro pode acidentalmente incluir req.body (que pode conter senha). Use redactDeep + nunca logar req.body bruto.",
+        "Edge case: contextIsolation:true torna obrigatorio usar contextBridge.exposeInMainWorld() no preload — verifique consistencia."
+      ],
+      "verification": {
+        "typecheck": true,
+        "parseable": false,
+        "auditCategory": {
+          "category": "SECURITY",
+          "maxSeverity": "LOW",
+          "command": "python3 .harness/scripts/audit-final.py",
+          "passCondition": "by_severity HIGH+MED em category SECURITY deve ser 0"
+        }
+      }
+    },
+    {
+      "id": "feat-004",
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "title": "Framework anti-patterns: async handlers, prepared top-level, innerHTML",
+      "description": "Consome categoria ANTI_PATTERN do audit. Comuns: Express 4 async handler sem .catch(next) wrapper; SQLite prepared statement TOP-LEVEL (deveria ser LAZY dentro da funcao — regra 13); innerHTML em renderer (proibido — usar textContent + createElement); tipo `any` (proibido pelo TS strict); eval() ou new Function() (proibido).",
+      "specLines": "none",
+      "files": [],
+      "acceptanceCriteria": [
+        "Zero `router\\.(get|post|put|delete)\\([^,]+,\\s*async \\(` sem wrapper .catch(next) OU asyncHandler.",
+        "Zero `const stmt = db.prepare(...)` no top-level (apenas DENTRO de funcoes).",
+        "Zero `innerHTML =` ou `dangerouslySetInnerHTML` em codigo de renderer.",
+        "Zero `: any\\b` em codigo de producao (apenas em casts justificados com comment).",
+        "Zero `eval(` ou `new Function(`.",
+        "Re-rodar audit-final.py mostra 0 findings HIGH em category=ANTI_PATTERN.",
+        "Typecheck e smoke continuam passando."
+      ],
+      "hints": [
+        "Express 4 async fix: ver clinerules §24.b (3 patterns aceitos).",
+        "Prepared LAZY: regra 13 — `function fn(db) { const stmt = db.prepare(SQL); return stmt.get(); }` em vez de `const stmt = db.prepare(SQL); function fn() { return stmt.get(); }`.",
+        "innerHTML fix: usar helper `el(tag, attrs, children)` que cria via createElement + appendChild. Strings vao via textContent."
+      ],
+      "verification": {
+        "typecheck": true,
+        "parseable": false,
+        "auditCategory": {
+          "category": "ANTI_PATTERN",
+          "maxSeverity": "LOW",
+          "command": "python3 .harness/scripts/audit-final.py",
+          "passCondition": "by_severity HIGH em category ANTI_PATTERN deve ser 0"
+        }
+      }
+    },
+    {
+      "id": "feat-005",
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "title": "Cleanup final: duplicacao + TODOs + smoke completo + release notes",
+      "description": "Ultima feature do pipeline. Consome categoria DUPLICATION e TODO. Extrai constantes para literais duplicados >=3x (se cross-sprint, vai pra shared/types ou constants.ts). Remove TODO/FIXME residuais ou converte em GitHub issues. Roda smoke completo final. Gera docs/RELEASE-NOTES.md com sumario do projeto: features done, stack usada, comandos uteis, paths importantes.",
+      "specLines": "none",
+      "files": [
+        { "file": "docs/RELEASE-NOTES.md", "lines": "new" }
+      ],
+      "acceptanceCriteria": [
+        "Literais duplicados >=3x em >=2 arquivos extraidos para constante OU justificados (ex: 'Content-Type', valores comuns).",
+        "Zero `TODO\\(Sprint`, `FIXME`, `throw new Error\\('not implemented'\\)` em codigo de producao.",
+        "Smoke completo (typecheck + builds + smokes especificos do projeto) passa.",
+        "docs/RELEASE-NOTES.md criado com: nome do projeto, stack usada, comandos uteis (dev/build/smoke), paths importantes (DB, audio, logs), variaveis de ambiente.",
+        "audit-final.py final retorna AUDIT=OK ou AUDIT=WARN (zero HIGH)."
+      ],
+      "hints": [
+        "Pattern: constants.ts em shared/ ou backend/constants.ts. Exporta `export const X = 'value' as const`.",
+        "RELEASE-NOTES.md: 1-2 paginas, conciso. Foco no que developer/dono do projeto precisa pra rodar manualmente. NAO duplicar SPEC.md.",
+        "Edge case: se audit tem findings LOW residuais, OK marcar done desde que HIGH+MED=0."
+      ],
+      "verification": {
+        "typecheck": true,
+        "parseable": false,
+        "grepMustMatch": [
+          "stack|comando|dev|build",
+          "Stack|Comandos|Paths"
+        ],
+        "grepMustNotMatch": [
+          "TODO\\(Sprint",
+          "FIXME"
+        ],
+        "grepFiles": [
+          "docs/RELEASE-NOTES.md"
+        ],
+        "auditFinal": {
+          "command": "python3 .harness/scripts/audit-final.py",
+          "expectExitCode": [0, 1],
+          "passCondition": "by_severity HIGH deve ser 0 (MED tolerado se justificado)"
+        }
+      }
+    }
+  ]
+}
