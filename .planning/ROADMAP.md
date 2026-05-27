@@ -24,7 +24,27 @@
 - Configuração de políticas de segurança Row Level Security (RLS) para proteger conteúdo pago
 - Middleware do Next.js configurado para proteção de rotas
 
-**Status:** ⬜ Not started
+**Status:** 🟡 Em andamento
+
+---
+
+### Phase 1.1 — Infraestrutura de Email e Comunicação (Resend)
+
+**Goal:** Configurar o sistema de emails transacionais da plataforma usando o Resend.com para que a plataforma possa confirmar cadastros, enviar recibos e notificar alunos.
+
+**Deliverables:**
+- Criar conta e configurar domínio no Resend.com (gratuito até 3.000 emails/mês)
+- Integrar o SDK do Resend no projeto Next.js
+- Template HTML com identidade visual do AgroFly Academy (logo, cores, tipografia) para:
+  - Email de boas-vindas ao novo membro
+  - Confirmação de email de cadastro
+  - Recibo de pagamento aprovado
+  - Alerta de pagamento recusado
+  - Notificação de nova aula publicada
+- Instalar widget de chat ao vivo **Tawk.to** (100% gratuito) na Landing Page e área de membros
+
+**Status:** ⬜ Não iniciado
+**Depends on:** Phase 1
 
 ---
 
@@ -60,8 +80,25 @@
 - Tela de Perfil do usuário para edição de foto, nome e alteração de senha
 - Middleware ativo validando sessões e bloqueando invasões em rotas premium
 
-**Status:** ⬜ Not started
-**Depends on:** Phase 1, Phase 2
+**Status:** ⬜ Não iniciado
+**Depends on:** Phase 1, Phase 1.1
+
+---
+
+### Phase 2.1 — Segurança Avançada e Conformidade com a LGPD
+
+**Goal:** Implementar camadas de segurança adicionais e garantir a conformidade legal com a Lei Geral de Proteção de Dados (LGPD) brasileira.
+
+**Deliverables:**
+- **Rate Limiting** com a biblioteca `@upstash/ratelimit`: bloquear automaticamente tentativas excessivas de login (proteção contra força bruta)
+- **Validação de Formulários no Servidor** com a biblioteca `Zod`: todos os dados enviados pelos usuários são validados antes de chegar ao banco de dados
+- **Cabeçalhos HTTP de Segurança** configurados no `next.config.js`: proteção contra XSS, Clickjacking e injeção de scripts
+- **Página de Política de Privacidade** com linguagem clara e em PT-BR (obrigatório por lei)
+- **Página de Termos de Uso** definindo direitos e responsabilidades da plataforma e dos membros
+- **Banner de Consentimento de Cookies** com aceite obrigatório (exigência da LGPD)
+
+**Status:** ⬜ Não iniciado
+**Depends on:** Phase 1
 
 ---
 
@@ -145,6 +182,23 @@
 
 ---
 
+### Phase 8.1 — Analytics, Monitoramento e Observabilidade
+
+**Goal:** Instalar as ferramentas de analytics e monitoramento que permitem entender o comportamento dos alunos, detectar erros em produção e garantir a disponibilidade da plataforma.
+
+**Deliverables:**
+- **Posthog (Analytics de Produto — Plano Grátis):** registrar eventos de clique, abandono de checkout, cursos mais acessados e páginas com maior conversão
+- **Sentry (Monitoramento de Erros — Plano Grátis):** alertas em tempo real para qualquer erro encontrado por usuários reais em produção, com rastreamento completo da causa
+- **Vercel Speed Insights:** monitoramento automático da velocidade de carregamento do site para usuários brasileiros
+- **UptimeRobot (Monitoramento de Disponibilidade — Gratuito):** alerta por email e WhatsApp se o site ficar fora do ar
+- **Imagens OG Dinâmicas:** prévia visual bonita gerada automaticamente quando qualquer link do AgroFly Academy for compartilhado no WhatsApp ou redes sociais
+- **UTM Tracking:** rastreamento de origem de novos cadastros (Instagram, YouTube, WhatsApp, etc.)
+
+**Status:** ⬜ Não iniciado
+**Depends on:** Phase 8
+
+---
+
 ### Phase 9 — Otimização, SEO Programático e Deploy
 
 **Goal:** Polimento estético, otimização de velocidade de carregamento, SEO agro-segmentado e deploy final na Vercel ou VPS.
@@ -173,5 +227,5 @@ Calculadora interativa na web para o piloto de drone calcular a vazão ideal bas
 Sistema para alunos premium recomendarem a plataforma e receberem comissão recorrente automaticamente.
 ---
 
-*Last updated: 2026-05-27 after AgroFly Academy rebranding*
+*Última atualização: 2026-05-27 — Arquitetura de sistemas revisada e aprovada. Fases 1.1, 2.1 e 8.1 adicionadas.*
 
