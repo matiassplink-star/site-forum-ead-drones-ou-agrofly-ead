@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ECRDronesLogo from '@/components/ECRDronesLogo';
 import { setUserSession, getUserSession } from '@/lib/mockAuth';
-import { Shield, Sparkles, User, Award, Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Sparkles, Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -58,7 +58,7 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    // Simula login de formulário como Premium por padrão para manter a dinâmica funcional
+    // Simula login de formulário como Premium por padrão
     setTimeout(() => {
       setUserSession({
         name: 'Aluno Matriculado',
@@ -89,299 +89,213 @@ export default function LoginPage() {
       <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-[radial-gradient(ellipse,rgba(46,125,50,0.03)_0%,transparent_70%)] pointer-events-none z-0" aria-hidden="true" />
       <div className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] bg-[radial-gradient(ellipse,rgba(245,127,23,0.02)_0%,transparent_70%)] pointer-events-none z-0" aria-hidden="true" />
 
-      {/* ── TELEMETRIA AÉREA DE DECORAÇÃO SUAVE ── */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-0 flex items-center justify-center">
-        <svg width="90%" height="90%" viewBox="0 0 1000 600" className="w-full h-full max-w-5xl">
-          <circle cx="500" cy="300" r="280" stroke="#2E7D32" strokeWidth="1" strokeDasharray="5 5" fill="none" />
-          <circle cx="500" cy="300" r="180" stroke="#2E7D32" strokeWidth="1" fill="none" />
-          <circle cx="500" cy="300" r="80" stroke="#F57F17" strokeWidth="1" strokeDasharray="3 3" fill="none" />
-          <path d="M150 300 H850 M500 50 V550" stroke="#2E7D32" strokeWidth="0.5" />
-          <path d="M480 150 H520 M480 450 H520 M490 200 H510 M490 400 H510" stroke="#2E7D32" strokeWidth="1" />
-          <text x="530" y="154" fill="#2E7D32" className="text-xs font-mono font-bold">ALT 45M</text>
-          <text x="530" y="454" fill="#2E7D32" className="text-xs font-mono font-bold">ALT -45M</text>
-        </svg>
-      </div>
-
       {/* ── PAINEL CENTRAL DE AUTENTICAÇÃO CLEAN ── */}
-      <div className="relative z-10 w-full max-w-4xl grid md:grid-cols-12 gap-8 items-stretch">
+      <div className="relative z-10 w-full max-w-[460px] bg-white border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.03)] p-8 sm:p-10 rounded-2xl flex flex-col justify-between">
         
-        {/* LADO ESQUERDO: APRESENTAÇÃO OPERACIONAL */}
-        <div className="md:col-span-5 bg-white border border-zinc-200/80 shadow-sm p-8 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
-          {/* Cantoneiras HUD */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-brand-green" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-brand-amber" />
+        {/* Cantoneiras HUD */}
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-brand-green/30" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-brand-green/30" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-brand-green/30" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-brand-green/30" />
 
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <ECRDronesLogo version={5} size={38} />
-              <div className="h-6 w-px bg-zinc-200" />
-              <span className="text-xs font-mono text-brand-green tracking-widest uppercase font-bold">SYS: ACTIVE</span>
-            </div>
-
-            <div className="space-y-3">
-              <h2 className="text-2xl font-bold font-heading text-zinc-900 tracking-tight leading-tight">
-                Plataforma de <br />
-                <span className="text-brand-green">Capacitação Rural</span>
-              </h2>
-              <p className="text-sm text-zinc-600 leading-relaxed font-sans">
-                Bem-vindo ao portal operacional da ECR Drones. Entre para simular seus treinamentos técnicos, mentorias ao vivo e participar do fórum de caldas com instrutores e pilotos.
-              </p>
-            </div>
-          </div>
-
-          {/* Dados operacionais úteis para simulação no campo */}
-          <div className="mt-8 space-y-4 border-t border-zinc-150 pt-6">
-            <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-zinc-400 font-medium">CONEXÃO:</span>
-              <span className="text-brand-green font-bold">100% LOCAL (ESTÁTICA)</span>
-            </div>
-            <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-zinc-400 font-medium">SESSÃO:</span>
-              <span className="text-brand-amber font-bold">LOCALSTORAGE PERSISTIDO</span>
-            </div>
-            <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-zinc-400 font-medium">MOCK SUPABASE:</span>
-              <span className="text-zinc-500 font-bold">DESATIVADO (MVP)</span>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <p className="text-xs text-zinc-400 font-mono text-center">
-              ECR DRONES © {new Date().getFullYear()} • Versão 2.1
-            </p>
-          </div>
-        </div>
-
-        {/* LADO DIREITO: FORMULÁRIO E BOTOES DE MOCK */}
-        <div className="md:col-span-7 bg-white border border-zinc-200/80 shadow-[0_4px_25px_rgba(46,125,50,0.04)] p-8 rounded-2xl flex flex-col justify-between relative">
+        <div className="space-y-6">
           
-          {/* Cantoneiras HUD */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-brand-green" />
-          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-brand-green" />
-          <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-brand-green" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-brand-green" />
+          {/* Logo e cabeçalho principal */}
+          <div className="flex flex-col items-center text-center space-y-4 mb-2">
+            <ECRDronesLogo version={3} size={36} showTagline={false} />
+            <div className="space-y-1">
+              <h3 className="text-xl font-extrabold text-zinc-900 tracking-tight">Central de Acesso</h3>
+              <p className="text-xs text-zinc-500 font-medium">Entre na sua conta para acessar as aulas e o fórum</p>
+            </div>
+          </div>
 
-          <div className="space-y-6">
+          {errorMessage && (
+            <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-650 font-mono font-medium">
+              ⚠️ {errorMessage}
+            </div>
+          )}
+
+          {/* FORMULÁRIO MANUAL */}
+          <form onSubmit={handleManualLogin} className="space-y-4">
+            
+            {/* CAMPO DE E-MAIL */}
             <div className="space-y-1.5">
-              <h3 className="text-xl font-bold font-heading text-zinc-900">Central de Acesso</h3>
-              <p className="text-sm text-zinc-500">Acesse sua conta de operador ou use um atalho rápido comercial.</p>
+              <label className="text-[10px] font-mono text-zinc-500 font-bold tracking-wider uppercase block">
+                E-mail do Operador
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <input
+                  type="email"
+                  disabled={loading}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="exemplo@agro.com.br"
+                  className="w-full bg-white border border-zinc-200 rounded-lg pl-10 pr-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all"
+                />
+              </div>
             </div>
 
-            {errorMessage && (
-              <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-650 font-mono font-medium">
-                ⚠️ {errorMessage}
-              </div>
-            )}
-
-            {/* SEÇÃO DE LOGIN RÁPIDO (COMERCIAL) */}
-            <div className="space-y-3 bg-zinc-50 border border-zinc-200 p-4 rounded-xl relative">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                <span className="text-[10px] font-mono text-brand-green font-bold tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-green animate-pulse" />
-                  ATALHOS DE SIMULAÇÃO COMERCIAL
+            {/* CAMPO DE SENHA */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <label className="text-[10px] font-mono text-zinc-500 font-bold tracking-wider uppercase block">
+                  Senha de Voo
+                </label>
+                <span className="text-xs text-brand-green font-semibold hover:underline cursor-pointer">
+                  Esqueceu a chave?
                 </span>
-                <span className="text-[9px] font-mono text-zinc-400 font-medium">IDEAL PARA DEMONSTRAÇÕES</span>
               </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                
-                {/* BOTÃO GRÁTIS */}
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+                  <Lock className="w-4 h-4" />
+                </div>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  disabled={loading}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full bg-white border border-zinc-200 rounded-lg pl-10 pr-10 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all"
+                />
                 <button
                   type="button"
-                  disabled={loading}
-                  onClick={() => handleSimulatedLogin('free')}
-                  className="bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-brand-green/60 p-3 rounded-lg text-center transition-all duration-300 group cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-650 transition-colors"
                 >
-                  <div className="w-7 h-7 rounded-full bg-zinc-100 flex items-center justify-center mx-auto mb-2 text-zinc-500 group-hover:bg-brand-green/10 group-hover:text-brand-green transition-colors">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <p className="text-xs font-bold text-zinc-800 mb-0.5">Gratuito</p>
-                  <span className="text-[9px] font-mono text-zinc-400 group-hover:text-brand-green font-semibold">Grátis</span>
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
-
-                {/* BOTÃO PREMIUM */}
-                <button
-                  type="button"
-                  disabled={loading}
-                  onClick={() => handleSimulatedLogin('premium')}
-                  className="bg-amber-50/40 hover:bg-amber-50 border border-brand-amber/20 hover:border-brand-amber/60 p-3 rounded-lg text-center transition-all duration-300 group cursor-pointer shadow-sm"
-                >
-                  <div className="w-7 h-7 rounded-full bg-amber-50 border border-brand-amber/20 flex items-center justify-center mx-auto mb-2 text-brand-amber group-hover:scale-105 transition-all">
-                    <Award className="w-4 h-4" />
-                  </div>
-                  <p className="text-xs font-bold text-brand-amber mb-0.5">Premium</p>
-                  <span className="text-[9px] font-mono text-brand-amber/80 font-bold">Completo</span>
-                </button>
-
-                {/* BOTÃO ADMIN */}
-                <button
-                  type="button"
-                  disabled={loading}
-                  onClick={() => handleSimulatedLogin('admin')}
-                  className="bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-brand-blue-sky/60 p-3 rounded-lg text-center transition-all duration-300 group cursor-pointer"
-                >
-                  <div className="w-7 h-7 rounded-full bg-zinc-100 flex items-center justify-center mx-auto mb-2 text-zinc-500 group-hover:bg-brand-blue-sky/10 group-hover:text-brand-blue-sky transition-colors">
-                    <Shield className="w-4 h-4" />
-                  </div>
-                  <p className="text-xs font-bold text-zinc-800 mb-0.5">Admin</p>
-                  <span className="text-[9px] font-mono text-zinc-400 group-hover:text-brand-blue-sky font-semibold">Gerencial</span>
-                </button>
-
               </div>
             </div>
 
+            {/* BOTÃO ENTRAR */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-brand-green hover:bg-brand-green/90 border border-brand-green/10 text-white font-extrabold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer shadow-sm disabled:opacity-50"
+            >
+              {loading ? (
+                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  Autenticar Equipamento
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+
+          </form>
+
+          {/* ── BOTÕES DE LOGIN SOCIAL ── */}
+          <div className="space-y-3 pt-2">
             <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-zinc-200"></div>
-              </div>
+              <div className="w-full border-t border-zinc-250"></div>
               <span className="relative bg-white px-3 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                Ou credenciais manuais
+                Ou acesse com
               </span>
             </div>
 
-            {/* FORMULÁRIO MANUAL */}
-            <form onSubmit={handleManualLogin} className="space-y-4">
-              
-              {/* CAMPO DE E-MAIL */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-mono text-zinc-550 font-bold tracking-wider uppercase block">
-                  E-mail do Operador
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <input
-                    type="email"
-                    disabled={loading}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="exemplo@agro.com.br"
-                    className="w-full bg-white border border-zinc-200 rounded-lg pl-10 pr-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* CAMPO DE SENHA */}
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-center">
-                  <label className="text-xs font-mono text-zinc-550 font-bold tracking-wider uppercase block">
-                    Senha de Voo
-                  </label>
-                  <span className="text-xs text-brand-green font-semibold hover:underline cursor-pointer">
-                    Esqueceu a chave?
-                  </span>
-                </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
-                    <Lock className="w-4 h-4" />
-                  </div>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    disabled={loading}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full bg-white border border-zinc-200 rounded-lg pl-10 pr-10 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-650 transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* BOTÃO ENTRAR */}
+            <div className="grid grid-cols-2 gap-3">
+              {/* BOTÃO GOOGLE */}
               <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-brand-green hover:bg-brand-green/90 border border-brand-green/10 text-white font-extrabold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer shadow-sm disabled:opacity-50"
+                type="button"
+                onClick={() => {
+                  setLoading(true);
+                  setTimeout(() => {
+                    setUserSession({
+                      name: 'Operador Google (Premium)',
+                      email: 'google.user@ecrdrones.com.br',
+                      role: 'premium',
+                    });
+                    router.push('/dashboard');
+                  }, 1200);
+                }}
+                className="bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-xs font-bold text-zinc-700 transition-all duration-200 cursor-pointer shadow-sm"
               >
-                {loading ? (
-                  <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <>
-                    Autenticar Equipamento
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                </svg>
+                Google
               </button>
 
-            </form>
-
-            {/* ── BOTÕES DE LOGIN SOCIAL ── */}
-            <div className="space-y-3 pt-2">
-              <div className="relative flex items-center justify-center">
-                <div className="w-full border-t border-zinc-200"></div>
-                <span className="relative bg-white px-3 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                  Ou acesse com
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {/* BOTÃO GOOGLE */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setLoading(true);
-                    setTimeout(() => {
-                      setUserSession({
-                        name: 'Operador Google (Premium)',
-                        email: 'google.user@ecrdrones.com.br',
-                        role: 'premium',
-                      });
-                      router.push('/dashboard');
-                    }, 1200);
-                  }}
-                  className="bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-xs font-bold text-zinc-700 transition-all duration-200 cursor-pointer shadow-sm"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-                  </svg>
-                  Google
-                </button>
-
-                {/* BOTÃO FACEBOOK */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setLoading(true);
-                    setTimeout(() => {
-                      setUserSession({
-                        name: 'Operador Facebook (Premium)',
-                        email: 'facebook.user@ecrdrones.com.br',
-                        role: 'premium',
-                      });
-                      router.push('/dashboard');
-                    }, 1200);
-                  }}
-                  className="bg-[#1877F2] hover:bg-[#166FE5] border border-transparent py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-xs font-bold text-white transition-all duration-200 cursor-pointer shadow-sm"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                  Facebook
-                </button>
-              </div>
+              {/* BOTÃO FACEBOOK */}
+              <button
+                type="button"
+                onClick={() => {
+                  setLoading(true);
+                  setTimeout(() => {
+                    setUserSession({
+                      name: 'Operador Facebook (Premium)',
+                      email: 'facebook.user@ecrdrones.com.br',
+                      role: 'premium',
+                    });
+                    router.push('/dashboard');
+                  }, 1200);
+                }}
+                className="bg-[#1877F2] hover:bg-[#166FE5] border border-transparent py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-xs font-bold text-white transition-all duration-200 cursor-pointer shadow-sm"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                Facebook
+              </button>
             </div>
-
           </div>
 
-          <div className="mt-8 text-center">
-            <span className="text-xs text-zinc-500 font-mono">
-              Não possui chave de acesso?{' '}
-              <span className="text-brand-green font-bold hover:underline cursor-pointer" onClick={() => handleSimulatedLogin('free')}>
-                Comece gratuitamente
+          {/* ── ATALHOS DE SIMULAÇÃO DISCRETOS ── */}
+          <details className="group border border-zinc-150 rounded-xl overflow-hidden bg-zinc-50 transition-all duration-300">
+            <summary className="list-none flex items-center justify-between p-3 text-xs font-mono font-bold text-zinc-500 cursor-pointer hover:bg-zinc-100 select-none">
+              <span className="flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-brand-green animate-pulse" />
+                ATALHOS RÁPIDOS DE TESTE
               </span>
-            </span>
-          </div>
+              <span className="transition-transform duration-300 group-open:rotate-180 text-[10px]">▼</span>
+            </summary>
+            <div className="p-3 border-t border-zinc-150 bg-white grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => handleSimulatedLogin('free')}
+                className="bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 p-2 rounded-lg text-center transition-all duration-200 cursor-pointer"
+              >
+                <p className="text-[10px] font-extrabold text-zinc-700 mb-0.5">Gratuito</p>
+                <span className="text-[9px] font-mono text-zinc-400 block">Grátis</span>
+              </button>
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => handleSimulatedLogin('premium')}
+                className="bg-amber-50/50 hover:bg-amber-50 border border-brand-amber/20 p-2 rounded-lg text-center transition-all duration-200 cursor-pointer"
+              >
+                <p className="text-[10px] font-extrabold text-brand-amber mb-0.5">Premium</p>
+                <span className="text-[9px] font-mono text-brand-amber/85 block">Completo</span>
+              </button>
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => handleSimulatedLogin('admin')}
+                className="bg-blue-50/50 hover:bg-blue-50 border border-brand-blue-sky/20 p-2 rounded-lg text-center transition-all duration-200 cursor-pointer"
+              >
+                <p className="text-[10px] font-extrabold text-brand-blue-sky mb-0.5">Admin</p>
+                <span className="text-[9px] font-mono text-zinc-400 block">Gerencial</span>
+              </button>
+            </div>
+          </details>
 
+        </div>
+
+        <div className="mt-8 text-center border-t border-zinc-100 pt-6">
+          <span className="text-xs text-zinc-500 font-mono">
+            Não possui chave de acesso?{' '}
+            <span className="text-brand-green font-bold hover:underline cursor-pointer" onClick={() => handleSimulatedLogin('free')}>
+              Comece gratuitamente
+            </span>
+          </span>
         </div>
 
       </div>
